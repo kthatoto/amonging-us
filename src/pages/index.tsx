@@ -20,7 +20,7 @@ const Index = () => {
         <Space h={40} />
         <SimpleGrid cols={3}>
           {ships.map((ship) => (
-            <Link to={`/ships/${ship.id}}}`}>
+            <Link to={`/ships/${ship.id}`}>
               <Card shadow="sm" h={100}>
                 <Text>{ship.title}</Text>
               </Card>
