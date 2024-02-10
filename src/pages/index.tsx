@@ -1,6 +1,14 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AppShell, Button, Card, Center, SimpleGrid, Space, Text } from "@mantine/core";
+import {
+  AppShell,
+  Button,
+  Card,
+  Center,
+  SimpleGrid,
+  Space,
+  Text,
+} from "@mantine/core";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useDisclosure } from "@mantine/hooks";
@@ -34,7 +42,9 @@ const Index = () => {
             >
               <Center h="100%">
                 <I icon={faPlus} size="xl" />
-                <Text fz={24} ml={10}>New Ship</Text>
+                <Text fz={24} ml={10}>
+                  New Ship
+                </Text>
               </Center>
             </Card>
           )}

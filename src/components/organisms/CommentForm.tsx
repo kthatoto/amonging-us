@@ -27,7 +27,12 @@ const formSchema = z.object({
   text: z.string().min(1),
 });
 
-const CommentForm = ({ shipId, objectId, editingComment, cancelEdit }: Props) => {
+const CommentForm = ({
+  shipId,
+  objectId,
+  editingComment,
+  cancelEdit,
+}: Props) => {
   const { user } = useAuthStore();
   const { selectObject } = useShipsStore();
 

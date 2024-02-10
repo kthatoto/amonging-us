@@ -1,5 +1,13 @@
 import { useMemo } from "react";
-import { Button, Modal, Text, Textarea, TextInput, Switch, Flex } from "@mantine/core";
+import {
+  Button,
+  Modal,
+  Text,
+  Textarea,
+  TextInput,
+  Switch,
+  Flex,
+} from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -92,7 +100,9 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
             <TextInput
               data-autofocus
               label={
-                <Text fw="bold" fz="lg">Ship Name</Text>
+                <Text fw="bold" fz="lg">
+                  Ship Name
+                </Text>
               }
               error={errors.title?.message}
               {...field}
@@ -139,7 +149,9 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
         />
         <Button type="submit" fullWidth size="lg">
           <I icon={faRocket} />
-          <Text fw="bold" ml={8}>Launch New Ship</Text>
+          <Text fw="bold" ml={8}>
+            Launch New Ship
+          </Text>
         </Button>
       </form>
     </Modal>
