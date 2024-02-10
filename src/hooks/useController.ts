@@ -13,6 +13,8 @@ const DOWN_KEYS = ["ArrowDown", "s"];
 const RIGHT_KEYS = ["ArrowRight", "d"];
 const LEFT_KEYS = ["ArrowLeft", "a"];
 
+const STOP_MOVE_TAGS = ["INPUT", "TEXTAREA"];
+
 export const useController = () => {
   const { move, position, setInteractableObjects } = usePlayerStore();
   const { shipDetail, selectedObject, clearObject } = useShipsStore();
@@ -35,7 +37,9 @@ export const useController = () => {
   );
 
   useInterval(async () => {
-    // console.log(document.activeElement.tagName);
+    if (STOP_MOVE_TAGS.includes(document.activeElement?.tagName || "")) {
+      return;
+    }
     const isUp = UP_KEYS.some((k) => pressingKeys.includes(k));
     const isDown = DOWN_KEYS.some((k) => pressingKeys.includes(k));
     const isRigth = RIGHT_KEYS.some((k) => pressingKeys.includes(k));
