@@ -5,6 +5,7 @@ import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { showSuccessNotification } from "@/utils/notifications";
 import useAuthStore from "@/stores/authStore";
+import useShipsStore from "@/stores/shipsStore";
 import { createComment, updateComment } from "@/models/comment";
 
 export interface EditParams {
@@ -28,6 +29,7 @@ const formSchema = z.object({
 
 const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
   const { user } = useAuthStore();
+  const { selectObject } = useShipsStore();
   const {
     control,
     handleSubmit,
@@ -47,6 +49,7 @@ const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
         userId: user.uid,
       });
       showSuccessNotification("Updated comment");
+      cancelEdit?.();
     } else {
       await createComment(shipId, objectId, {
         ...params,
@@ -54,6 +57,7 @@ const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
       });
       showSuccessNotification("Created new comment!");
     }
+    await selectObject(shipId, objectId);
   });
 
   return (

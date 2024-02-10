@@ -24,29 +24,27 @@ const Comment = ({ comment, setEditingComment }: Props) => {
   }, [setEditingComment, comment]);
 
   return (
-    <Stack gap={8}>
-      <Group gap={8} wrap="nowrap" align="top">
-        <Image
-          w={35}
-          h={35}
-          radius="50%"
-          style={{ border: "1px solid gray" }}
-          src={dummySrc}
-        />
-        <Stack gap={0}>
-          <Group justify="space-between" align="flex-start">
-            <Box>
-              <Text fz="sm">{dummyName}</Text>
-              <Text fz="xs">{dateString}</Text>
-            </Box>
-            <UnstyledButton onClick={onEdit}>
-              <I icon={faEdit} size="sm" color="gray" />
-            </UnstyledButton>
-          </Group>
-          <Text fz="md" fw="bold">{comment.text}</Text>
-        </Stack>
-      </Group>
-    </Stack>
+    <Group gap={8} wrap="nowrap" align="top" w="100%">
+      <Image
+        w={35}
+        h={35}
+        radius="50%"
+        style={{ border: "1px solid gray" }}
+        src={dummySrc}
+      />
+      <Stack gap={0} flex={1}>
+        <Group justify="space-between" align="flex-start">
+          <Box>
+            <Text fz="sm">{dummyName}</Text>
+            <Text fz="xs">{dateString}</Text>
+          </Box>
+          <UnstyledButton onClick={onEdit}>
+            <I icon={faEdit} size="sm" color="gray" />
+          </UnstyledButton>
+        </Group>
+        <Text fz="md" fw="bold">{comment.text}</Text>
+      </Stack>
+    </Group>
   );
 };
 
