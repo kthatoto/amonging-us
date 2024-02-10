@@ -1,5 +1,12 @@
 import { create } from "zustand";
-import { listShips, getShipDetail, Ship, ShipDetail } from "@/models/ship";
+import {
+  listShips,
+  getShipDetail,
+  getObjectDetail,
+  Ship,
+  ShipDetail,
+  ObjectDetail,
+} from "@/models/ship";
 
 interface ShipsStore {
   ships: Ship[];
@@ -24,7 +31,8 @@ export default create<ShipsStore>((set) => {
   };
 
   const selectObject = async (id: string, objectId: string) => {
-    console.log(id, objectId);
+    const objectDetail = await getObjectDetail(id, objectId);
+    set({ selectedObject: objectDetail });
   };
 
   return {

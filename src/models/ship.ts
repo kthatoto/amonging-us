@@ -10,6 +10,16 @@ import { db } from "@/firebase";
 
 export const SHIPS_COLLECTION_NAME = "ships";
 export const OBJECTS_COLLECTION_NAME = "objects";
+export const COMMENTS_COLLECTION_NAME = "comments";
+
+export interface Comment {
+  id: string;
+  text: string;
+  userId: string;
+  userName: string;
+  userImageUrl: string;
+  createdAt: string;
+}
 
 export interface ObjectDoc {
   id: string;
@@ -18,6 +28,13 @@ export interface ObjectDoc {
   width: number;
   height: number;
 }
+export interface ObjectDetail extends ObjectDoc {
+  title: string;
+  description: string;
+  progress: number;
+  comments: Comment[];
+}
+
 export interface Ship {
   id: string;
   title: string;
@@ -47,6 +64,7 @@ export const getShipDetail = async (id: string) => {
 
   const shipDoc = await getDoc(shipDocRef);
   const objectDocs = await getDocs(objectDocsRef);
+
   return {
     id: shipDoc.id,
     ...shipDoc.data(),
@@ -55,4 +73,23 @@ export const getShipDetail = async (id: string) => {
       ...objectDoc.data(),
     } as ObjectDoc)),
   } as ShipDetail;
+};
+
+export const getObjectDetail = async (id: string, objectId: string): Promise<ObjectDetail> => {
+  const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
+  const objectDocRef = doc(shipDocRef, OBJECTS_COLLECTION_NAME, objectId);
+
+  const objectDoc = await getDoc(objectDocRef);
+  const commentDocsRef = collection(objectDocRef, COMMENTS_COLLECTION_NAME);
+
+  const commentDocs = await getDocs(commentDocsRef);
+
+  return {
+    id: objectDoc.id,
+    ...objectDoc.data(),
+    comments: commentDocs.docs.map((commentDoc) => ({
+      id: commentDoc.id,
+      ...commentDoc.data(),
+    }) as Comment),
+  } as ObjectDetail;
 };
