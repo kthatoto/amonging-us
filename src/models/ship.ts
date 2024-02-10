@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -7,6 +8,7 @@ import {
   orderBy,
   where,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
@@ -131,4 +133,25 @@ export const getShipUsers = async (id: string) => {
         ...userDoc.data(),
       }) as UserDoc,
   );
+};
+
+export interface ShipParams {
+  title: string;
+  description: string;
+  isPrivate: boolean;
+  userId: string;
+}
+
+export const createShip = async (params: ShipParams) => {
+  const shipDocsRef = collection(db, SHIPS_COLLECTION_NAME);
+  await addDoc(shipDocsRef, params);
+};
+
+export const updateShip = async (id: string, params: ShipParams) => {
+  const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
+  await updateDoc(shipDocRef, {
+    title: params.title,
+    description: params.description,
+    isPrivate: params.isPrivate,
+  });
 };

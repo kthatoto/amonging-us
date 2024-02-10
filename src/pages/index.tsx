@@ -25,17 +25,19 @@ const Index = () => {
         {user ? <Button onClick={signOut}>Sing Out</Button> : <SignIn />}
         <Space h={40} />
         <SimpleGrid cols={3}>
-          <Card
-            shadow="sm"
-            h={200}
-            style={{ cursor: "pointer" }}
-            onClick={newShipModalHandlers.open}
-          >
-            <Center h="100%">
-              <I icon={faPlus} size="xl" />
-              <Text fz={24} ml={10}>New Ship</Text>
-            </Center>
-          </Card>
+          {user && (
+            <Card
+              shadow="sm"
+              h={200}
+              style={{ cursor: "pointer" }}
+              onClick={newShipModalHandlers.open}
+            >
+              <Center h="100%">
+                <I icon={faPlus} size="xl" />
+                <Text fz={24} ml={10}>New Ship</Text>
+              </Center>
+            </Card>
+          )}
           {ships.map((ship) => (
             <Link key={ship.id} to={`/ships/${ship.id}`}>
               <Card shadow="sm" h={200}>

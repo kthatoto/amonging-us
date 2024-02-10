@@ -8,6 +8,8 @@ import {
   ObjectDetail,
   join,
   getShipUsers,
+  createShip,
+  updateShip,
 } from "@/models/ship";
 import { UserDoc } from "@/models/user";
 import { registerUser } from "@/database/user";
@@ -50,6 +52,8 @@ export default create<ShipsStore>((set) => {
   return {
     ships: [],
     getShips,
+    createShip,
+    updateShip,
 
     shipDetail: undefined,
     rideShip,
