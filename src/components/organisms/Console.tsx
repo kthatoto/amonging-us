@@ -45,14 +45,16 @@ const Console = () => {
             <span style={{ marginLeft: 8, marginRight: 8 }}>Members</span>
             <span>({shipDetail.users.length})</span>
           </Text>
-          {shipDetail.users.map((u) => (
-            <Group key={u.id} wrap="nowrap" align="flex-start">
-              <UserIcon user={u} size={30} />
-              <Text flex={1} pt={4}>
-                {u.name}
-              </Text>
-            </Group>
-          ))}
+          <Stack gap={6}>
+            {shipDetail.users.map((u) => (
+              <Group key={u.id} wrap="nowrap" align="flex-start">
+                <UserIcon user={u} size={30} />
+                <Text flex={1} pt={4}>
+                  {u.name}
+                </Text>
+              </Group>
+            ))}
+          </Stack>
         </Box>
         <Stack gap={10} px={10} pb={10}>
           <Divider />
