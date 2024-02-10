@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core";
+import { Box, Image, Text } from "@mantine/core";
 import useAuthStore from "@/stores/authStore";
 import { useController } from "@/hooks/useController";
 
@@ -9,7 +9,6 @@ const commonStyle = {
   inset: 0,
   position: "absolute",
   borderRadius: "50%",
-  backgroundColor: "white",
   border: "1px solid gray",
 } as const;
 
@@ -22,6 +21,7 @@ const Player = () => {
       <Box
         style={{
           ...commonStyle,
+          backgroundColor: "gray",
         }}
       />
     );
@@ -30,8 +30,15 @@ const Player = () => {
     <Box
       style={{
         ...commonStyle,
+        backgroundColor: "skyblue",
       }}
-    />
+    >
+      {user.photoURL ? (
+        <Image w="100%" h="100%" radius="50%" src={user.photoURL} />
+      ) : (
+        <Text>{user.displayName?.at(0)}</Text>
+      )}
+    </Box>
   );
 };
 
