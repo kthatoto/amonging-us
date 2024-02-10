@@ -1,10 +1,10 @@
 import { useRef, useEffect } from "react";
-import { AppShell, Box, Button, Group, Flex, Text } from "@mantine/core";
+import { AppShell, Box } from "@mantine/core";
 import { useParams } from "@/router";
+import Console from "@/components/organisms/Console";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
 import useShipsStore from "@/stores/shipsStore";
-import { Link } from "react-router-dom";
 
 const Main = () => {
   const { id } = useParams("/ships/:id");
@@ -32,29 +32,6 @@ const Main = () => {
       ))}
       <Player />
     </Box>
-  );
-};
-
-const Console = () => {
-  const { selectedObject } = useShipsStore();
-  return (
-    <Flex
-      justify="space-between"
-      direction="column"
-      h="100%"
-      p={20}
-    >
-      {selectedObject && (
-        <Group align="top" wrap="nowrap">
-          <Box w={80} h={80} style={{ minWidth: 80 }} bg="gray"></Box>
-          <Box flex={1}>
-            <Text>{selectedObject.title}</Text>
-          </Box>
-        </Group>
-      )}
-
-      <Button component={Link} to="/">Top Page</Button>
-    </Flex>
   );
 };
 
