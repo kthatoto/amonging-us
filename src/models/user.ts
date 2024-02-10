@@ -1,8 +1,4 @@
-import {
-  doc,
-  getDoc,
-  setDoc,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { UserInfo } from "firebase/auth";
 import { db } from "@/firebase";
 import { USERS_COLLECTION_NAME } from "@/constants";
