@@ -56,7 +56,7 @@ export interface ShipDetail extends Ship {
   walls: ObjectDoc[];
 }
 
-export const listShips = async () => {
+export const listShips = async (userId: string) => {
   const shipDocsRef = query(
     collection(db, SHIPS_COLLECTION_NAME),
     where("isPrivate", "!=", true),
