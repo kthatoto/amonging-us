@@ -3,19 +3,18 @@ import { useDisclosure } from "@mantine/hooks";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faEdit, faLock } from "@fortawesome/free-solid-svg-icons";
 import useShipsStore from "@/stores/shipsStore";
-// import { useParams } from "@/router";
-// import { showSuccessNotification } from "@/utils/notifications";
 import useAuthStore from "@/stores/authStore";
 import ShipModalForm from "@/components/organisms/ShipModalForm";
 import ObjectConsole from "./Console/ObjectConsole";
+import UserIcon from "@/components/atoms/UserIcon";
+import { Link } from "react-router-dom";
 
 const Console = () => {
-  // const { id } = useParams("/ships/:id");
   const { user } = useAuthStore();
   const {
     shipDetail,
     selectedObject,
-    // users,
+    users,
   } = useShipsStore();
 
   const [opened, { open, close }] = useDisclosure();
@@ -25,7 +24,7 @@ const Console = () => {
   if (!shipDetail) return null;
   return (
     <>
-      <Stack gap={0}>
+      <Stack gap={0} h="100%">
         <Box p={10}>
           <Group justify="space-between" wrap="nowrap" align="flex-start">
             <Text fz={24} fw="bold">
@@ -44,6 +43,18 @@ const Console = () => {
           )}
           <Divider mt={10} />
         </Box>
+        <Box px={10} flex={1} style={{ overflow: "scroll" }}>
+          {users.map((u) => (
+            <Group wrap="nowrap" align="flex-start">
+              <UserIcon user={u} size={30}/>
+              <Text flex={1} pt={4}>{u.name}</Text>
+            </Group>
+          ))}
+        </Box>
+        <Stack gap={10} px={10} pb={10}>
+          <Divider />
+          <Button component={Link} to="/" variant="default" fullWidth>Top Page</Button>
+        </Stack>
       </Stack>
       <ShipModalForm opened={opened} close={close} editingShip={shipDetail} />
     </>
