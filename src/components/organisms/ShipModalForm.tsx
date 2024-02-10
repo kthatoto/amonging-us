@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button, Modal, Text, Textarea, TextInput, Switch } from "@mantine/core";
+import { Button, Modal, Text, Textarea, TextInput, Switch, Flex } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -78,7 +78,11 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
     <Modal
       opened={opened}
       onClose={close}
-      title={isEditing ? "Edit Ship" : "New Ship"}
+      title={
+        <Text fz="xl" fw="bold">
+          {isEditing ? "Edit Ship" : "New Ship"}
+        </Text>
+      }
     >
       <form onSubmit={onSubmit}>
         <Controller
@@ -86,6 +90,7 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
           name="title"
           render={({ field }) => (
             <TextInput
+              data-autofocus
               label={
                 <Text fw="bold" fz="lg">Ship Name</Text>
               }
@@ -96,7 +101,7 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
         />
         <Controller
           control={control}
-          name="title"
+          name="description"
           render={({ field }) => (
             <Textarea
               label={
@@ -113,19 +118,28 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
           control={control}
           name="isPrivate"
           render={({ field }) => (
-            <Switch
-              label={
-                <Text fw="bold" fz="lg" my={8}>
-                  Private Ship
-                </Text>
-              }
-              {...field}
-            />
+            <Flex justify="flex-end" my={10}>
+              <Switch
+                size="md"
+                styles={{
+                  root: { cursor: "pointer" },
+                  track: { alignSelf: "center", cursor: "pointer" },
+                  body: { flexDirection: "row-reverse", gap: 10 },
+                  label: { cursor: "pointer" },
+                }}
+                label={
+                  <Text fw="bold" fz="lg" my={8}>
+                    Private Ship
+                  </Text>
+                }
+                {...field}
+              />
+            </Flex>
           )}
         />
-        <Button type="submit">
+        <Button type="submit" fullWidth size="lg">
           <I icon={faRocket} />
-          <span>Launch New Ship</span>
+          <Text fw="bold" ml={8}>Launch New Ship</Text>
         </Button>
       </form>
     </Modal>
