@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   Center,
+  Divider,
   Group,
   SimpleGrid,
   Space,
@@ -12,12 +13,13 @@ import {
   Text,
 } from "@mantine/core";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
-import { faPlus, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faLock, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { useDisclosure } from "@mantine/hooks";
 import SignIn from "@/components/SignIn";
 import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
 import ShipModalForm from "@/components/organisms/ShipModalForm";
+import UserIcon from "@/components/atoms/UserIcon";
 
 const Index = () => {
   const { user, signOut } = useAuthStore();
@@ -53,7 +55,7 @@ const Index = () => {
           {ships.map((ship) => (
             <Link key={ship.id} to={`/ships/${ship.id}`} style={{ textDecoration: "none" }}>
               <Card shadow="sm" h={200}>
-                <Stack gap={4}>
+                <Stack gap={0}>
                   <Group justify="space-between" wrap="nowrap" align="flex-start">
                     <Text fz={20} fw="bold">{ship.title}</Text>
                     {ship.isPrivate && (
@@ -63,6 +65,15 @@ const Index = () => {
                   {ship.description && (
                     <Text>{ship.description}</Text>
                   )}
+                  <Divider my={8} />
+                  <Text fz={16} fw="bold" mt={4}>
+                    <I icon={faUsers} />
+                    <span style={{ marginLeft: 8, marginRight: 8 }}>Members</span>
+                    <span>({ship.users.length})</span>
+                  </Text>
+                  <Group gap={2}>
+                    {ship.users.map((user) => <UserIcon user={user} size={35} />)}
+                  </Group>
                 </Stack>
               </Card>
             </Link>
