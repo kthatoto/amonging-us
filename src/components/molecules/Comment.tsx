@@ -14,23 +14,27 @@ interface Props {
   comment: IComment;
   setEditingComment: (params: CommentEditParams) => void;
   isEditing: boolean;
+  deleteComment: (commentId: string) => Promise<void>;
 }
 
 const dummySrc = "https://lh3.googleusercontent.com/a/ACg8ocISAgqL0AWYtiS1K0UjC8atjUEDYiWMIZ_-J4nZ4_nzDQ=s288-c-no";
 const dummyName = "はとぴじょんああああああ";
 
-const Comment = ({ comment, setEditingComment, isEditing }: Props) => {
+const Comment = ({ comment, setEditingComment, isEditing, deleteComment }: Props) => {
   const { user } = useAuthStore();
   const { hovered, ref } = useHover();
 
   const dateString = useMemo(() => {
     return dayjs(comment.createdAt).format("YYYY/MM/DD HH:mm");
   }, [comment.createdAt])
+
   const onEdit = useCallback(() => {
     setEditingComment({ id: comment.id, text: comment.text });
   }, [setEditingComment, comment]);
+
   const onDelete = useCallback(() => {
-  }, []);
+    deleteComment(comment.id);
+  }, [comment, deleteComment]);
 
   return (
     <Group

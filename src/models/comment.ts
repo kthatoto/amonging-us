@@ -4,6 +4,7 @@ import {
   doc,
   Timestamp,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
@@ -40,4 +41,11 @@ export const updateComment = async (
   await updateDoc(commentDocRef, {
     text: params.text,
   });
+};
+
+export const deleteComment = async (shipId: string, objectId: string, commentId: string) => {
+  const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, shipId);
+  const objectDocRef = doc(shipDocRef, OBJECTS_COLLECTION_NAME, objectId);
+  const commentDocRef = doc(objectDocRef, COMMENTS_COLLECTION_NAME, commentId);
+  await deleteDoc(commentDocRef);
 };

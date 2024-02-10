@@ -1,16 +1,26 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Box, Divider, Group, Flex, Stack, Text } from "@mantine/core";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import useShipsStore from "@/stores/shipsStore";
+import { deleteComment } from "@/models/comment";
 import Comment from "@/components/molecules/Comment";
 import CommentForm, { EditParams as CommentEditParams } from "@/components/organisms/CommentForm";
 import { useParams } from "@/router";
+import { showSuccessNotification } from "@/utils/notifications";
 
 const Console = () => {
   const { id } = useParams("/ships/:id");
-  const { selectedObject } = useShipsStore();
+  const { selectedObject, selectObject } = useShipsStore();
   const [editingComment, setEditingComment] = useState<CommentEditParams | undefined>();
+
+  const destroyComment = useCallback(async (commentId: string) => {
+    if (!selectedObject) return;
+    const objectId = selectedObject.id;
+    await deleteComment(id, objectId, commentId);
+    await selectObject(id, objectId);
+    showSuccessNotification("Deleted comment");
+  }, [selectedObject, id, selectObject]);
 
   if (selectedObject) {
     return (
@@ -46,6 +56,7 @@ const Console = () => {
                   comment={comment}
                   setEditingComment={setEditingComment}
                   isEditing={editingComment?.id === comment.id}
+                  deleteComment={destroyComment}
                 />
               ))}
               {selectedObject.comments.length === 0 && (
