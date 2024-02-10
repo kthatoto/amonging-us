@@ -10,13 +10,12 @@ import useShipsStore from "@/stores/shipsStore";
 const Main = () => {
   const { user } = useAuthStore();
   const { id } = useParams("/ships/:id");
-  const { rideShip, shipDetail, joinShip } = useShipsStore();
+  const { rideShip, shipDetail } = useShipsStore();
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    rideShip(id);
-    if (user) joinShip(id, user.uid);
-  }, [rideShip, id, user, joinShip]);
+    rideShip(id, user);
+  }, [rideShip, id, user]);
 
   if (!shipDetail) return null;
 

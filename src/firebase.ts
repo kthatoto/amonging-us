@@ -3,9 +3,9 @@ import {
   getAuth,
   GoogleAuthProvider,
   connectAuthEmulator,
-  FacebookAuthProvider,
 } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -21,9 +21,9 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const db = getFirestore(app);
+const rtdb = getDatabase(app);
 
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
 
 const isDevelopment = import.meta.env.DEV;
 if (isDevelopment) {
@@ -31,4 +31,9 @@ if (isDevelopment) {
   connectFirestoreEmulator(db, "localhost", 8080);
 }
 
-export { db, auth, googleProvider, facebookProvider };
+export {
+  auth,
+  db,
+  rtdb,
+  googleProvider,
+};

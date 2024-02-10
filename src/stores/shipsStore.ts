@@ -10,19 +10,20 @@ import {
   getShipUsers,
 } from "@/models/ship";
 import { UserDoc } from "@/models/user";
+import { registerUser } from "@/database/user";
+import { UserInfo } from "firebase/auth";
 
 interface ShipsStore {
   ships: Ship[];
   getShips: () => Promise<void>;
 
   shipDetail?: ShipDetail;
-  rideShip: (id: string) => Promise<void>;
+  rideShip: (id: string, user: UserInfo | null) => Promise<void>;
 
   selectedObject?: ObjectDetail;
   selectObject: (id: string, objectId: string) => Promise<void>;
 
   users: UserDoc[];
-  joinShip: (id: string, userId: string) => Promise<void>;
 }
 
 export default create<ShipsStore>((set) => {
@@ -31,10 +32,12 @@ export default create<ShipsStore>((set) => {
     set({ ships });
   };
 
-  const rideShip = async (id: string) => {
+  const rideShip = async (id: string, user: UserInfo | null) => {
     const [shipDetail, users] = await Promise.all([
       getShipDetail(id),
       getShipUsers(id),
+      user ? join(id, user.uid) : undefined,
+      user ? registerUser(id, user) : undefined,
     ]);
     set({ shipDetail, users });
   };
@@ -42,10 +45,6 @@ export default create<ShipsStore>((set) => {
   const selectObject = async (id: string, objectId: string) => {
     const objectDetail = await getObjectDetail(id, objectId);
     set({ selectedObject: objectDetail });
-  };
-
-  const joinShip = async (id: string, userId: string) => {
-    await join(id, userId);
   };
 
   return {
@@ -59,6 +58,5 @@ export default create<ShipsStore>((set) => {
     selectObject,
 
     users: [],
-    joinShip,
   };
 });
