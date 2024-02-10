@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { AppShell, Box } from "@mantine/core";
 // import { useParams } from "@/router";
-import { useController } from "@/hooks/useController";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
 import useObjectsStore from "@/stores/objectsStore";
@@ -36,7 +35,6 @@ const Console = () => {
 
 const Ship = () => {
   // const { id } = useParams("/ships/:id");
-  useController();
 
   return (
     <AppShell

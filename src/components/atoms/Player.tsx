@@ -1,5 +1,6 @@
 import { Box } from "@mantine/core";
 import useAuthStore from "@/stores/authStore";
+import { useController } from "@/hooks/useController";
 
 const commonStyle = {
   width: 50,
@@ -13,6 +14,7 @@ const commonStyle = {
 } as const;
 
 const Player = () => {
+  useController();
   const { user } = useAuthStore();
 
   if (!user) {
