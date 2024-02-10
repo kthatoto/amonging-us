@@ -75,7 +75,7 @@ const Console = () => {
             key={"edit-form-" + editingComment.id}
             shipId={id}
             objectId={selectedObject.id}
-            comment={editingComment}
+            editingComment={editingComment}
             cancelEdit={() => setEditingComment(undefined)}
           />
         ) : (
