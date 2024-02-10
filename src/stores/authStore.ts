@@ -10,6 +10,7 @@ import {
   showErrorNotification,
   showSuccessNotification,
 } from "@/utils/notifications";
+import { touchUser } from "@/models/user";
 
 interface AuthStore {
   user: UserInfo | null;
@@ -34,6 +35,7 @@ export default create<AuthStore>((set) => {
         const userCredential = await signInWithPopup(auth, googleProvider);
         showSuccessNotification("Success sign-in");
         set({ user: userCredential.user, loading: false, error: null });
+        touchUser(userCredential.user);
       } catch (error) {
         showErrorNotification("Fail sign-in");
         set({ loading: false, error });
