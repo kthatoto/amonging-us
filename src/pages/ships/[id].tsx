@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import { AppShell, Box } from "@mantine/core";
 import { useParams } from "@/router";
 import Console from "@/components/organisms/Console";
+import Wall from "@/components/atoms/Wall";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
 import useAuthStore from "@/stores/authStore";
@@ -30,6 +31,9 @@ const Main = () => {
         position: "relative",
       }}
     >
+      {shipDetail.walls.map((wall) => (
+        <Wall key={wall.id} wall={wall} mainRef={mainRef} />
+      ))}
       {shipDetail.objects.map((obj) => (
         <Objekt key={obj.id} objekt={obj} mainRef={mainRef} />
       ))}
