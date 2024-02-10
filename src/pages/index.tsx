@@ -7,7 +7,7 @@ import { useDisclosure } from "@mantine/hooks";
 import SignIn from "@/components/SignIn";
 import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
-import NewShipModal from "@/components/organisms/NewShipModal";
+import ShipModalForm from "@/components/organisms/ShipModalForm";
 
 const Index = () => {
   const { user, signOut } = useAuthStore();
@@ -47,7 +47,7 @@ const Index = () => {
           ))}
         </SimpleGrid>
 
-        <NewShipModal
+        <ShipModalForm
           opened={newShipModalOpened}
           close={newShipModalHandlers.close}
         />
