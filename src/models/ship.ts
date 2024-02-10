@@ -16,6 +16,7 @@ import {
   OBJECTS_COLLECTION_NAME,
   COMMENTS_COLLECTION_NAME,
   USERS_COLLECTION_NAME,
+  WALLS_COLLECTION_NAME,
 } from "@/constants";
 import { getUser, UserDoc } from "@/models/user";
 
@@ -48,6 +49,7 @@ export interface Ship {
 }
 export interface ShipDetail extends Ship {
   objects: ObjectDoc[];
+  walls: ObjectDoc[];
 }
 
 export const listShips = async () => {
@@ -68,9 +70,11 @@ export const listShips = async () => {
 export const getShipDetail = async (id: string) => {
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
   const objectDocsRef = collection(shipDocRef, OBJECTS_COLLECTION_NAME);
+  const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
 
   const shipDoc = await getDoc(shipDocRef);
   const objectDocs = await getDocs(objectDocsRef);
+  const wallDocs = await getDocs(wallDocsRef);
 
   return {
     id: shipDoc.id,
@@ -80,6 +84,13 @@ export const getShipDetail = async (id: string) => {
         ({
           id: objectDoc.id,
           ...objectDoc.data(),
+        }) as ObjectDoc,
+    ),
+    walls: wallDocs.docs.map(
+      (wallDoc) =>
+        ({
+          id: wallDoc.id,
+          ...wallDoc.data(),
         }) as ObjectDoc,
     ),
   } as ShipDetail;
@@ -144,7 +155,12 @@ export interface ShipParams {
 
 export const createShip = async (params: ShipParams) => {
   const shipDocsRef = collection(db, SHIPS_COLLECTION_NAME);
-  await addDoc(shipDocsRef, params);
+  const shipDocRef = await addDoc(shipDocsRef, params);
+  const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
+  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 1000, height: 3000 });
+  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 3000, height: 1000 });
+  await addDoc(wallDocsRef, { x: 500, y: -1500, width: 1000, height: 3000 });
+  await addDoc(wallDocsRef, { x: -1500, y: 500, width: 3000, height: 1000 });
 };
 
 export const updateShip = async (id: string, params: ShipParams) => {
