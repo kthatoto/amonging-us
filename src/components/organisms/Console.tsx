@@ -40,7 +40,7 @@ const Console = () => {
               </Text>
               <Stack gap={16}>
                 {selectedObject.comments.map((comment) => (
-                  <Comment comment={comment}/>
+                  <Comment key={comment.id} comment={comment}/>
                 ))}
                 {selectedObject.comments.length === 0 && (
                   <Text c="gray">No Comments yet</Text>
