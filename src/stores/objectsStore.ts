@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 const OBJECTS: Objekt[] = [
+  { x: -25, y: -25, width: 50, height: 50 },
   { x: -325, y: -325, width: 50, height: 50 },
   { x: -325, y: 275, width: 50, height: 50 },
   { x: 275, y: -325, width: 50, height: 50 },
