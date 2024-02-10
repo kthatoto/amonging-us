@@ -14,4 +14,6 @@ export const registerUser = async (shipId: string, user: UserInfo) => {
   });
 };
 
-// export const updateUser = (userId) => {};
+export const updateUser = async (shipId: string, userId: string, pos: { x: number, y: number }) => {
+  await update(ref(rtdb, `ships/${shipId}/users/${userId}/position`), pos);
+};
