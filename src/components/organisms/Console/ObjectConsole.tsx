@@ -83,11 +83,7 @@ const ObjectConsole = ({ selectedObject }: Props) => {
           cancelEdit={() => setEditingComment(undefined)}
         />
       ) : (
-        <CommentForm
-          key="new-form"
-          shipId={id}
-          objectId={selectedObject.id}
-        />
+        <CommentForm key="new-form" shipId={id} objectId={selectedObject.id} />
       )}
     </Flex>
   );

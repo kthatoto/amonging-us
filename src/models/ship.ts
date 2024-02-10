@@ -60,10 +60,7 @@ export interface ShipDetail extends Ship {
 export const listShips = async (userId: string) => {
   const shipDocsRef = query(
     collection(db, SHIPS_COLLECTION_NAME),
-    or(
-      where("isPrivate", "!=", true),
-      where("userId", "==", userId)
-    ),
+    or(where("isPrivate", "!=", true), where("userId", "==", userId)),
   );
   const shipDocs = await getDocs(shipDocsRef);
 
@@ -165,10 +162,34 @@ export const createShip = async (params: ShipParams) => {
   const shipDocsRef = collection(db, SHIPS_COLLECTION_NAME);
   const shipDocRef = await addDoc(shipDocsRef, params);
   const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
-  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 1000, height: 3000, isWall: true });
-  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 3000, height: 1000, isWall: true });
-  await addDoc(wallDocsRef, { x: 500, y: -1500, width: 1000, height: 3000, isWall: true });
-  await addDoc(wallDocsRef, { x: -1500, y: 500, width: 3000, height: 1000, isWall: true });
+  await addDoc(wallDocsRef, {
+    x: -1500,
+    y: -1500,
+    width: 1000,
+    height: 3000,
+    isWall: true,
+  });
+  await addDoc(wallDocsRef, {
+    x: -1500,
+    y: -1500,
+    width: 3000,
+    height: 1000,
+    isWall: true,
+  });
+  await addDoc(wallDocsRef, {
+    x: 500,
+    y: -1500,
+    width: 1000,
+    height: 3000,
+    isWall: true,
+  });
+  await addDoc(wallDocsRef, {
+    x: -1500,
+    y: 500,
+    width: 3000,
+    height: 1000,
+    isWall: true,
+  });
 };
 
 export const updateShip = async (id: string, params: ShipParams) => {

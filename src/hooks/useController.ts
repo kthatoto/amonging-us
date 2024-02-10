@@ -51,7 +51,7 @@ export const useController = () => {
     const objects = [
       ...(shipDetail?.objects || []),
       ...(shipDetail?.walls || []),
-    ]
+    ];
     if (objects.length > 0 && isMoving) {
       objects.forEach((obj) => {
         const result = calcCollisionStatus(

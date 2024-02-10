@@ -20,8 +20,7 @@ const Console = () => {
 
   const [opened, { open, close }] = useDisclosure();
 
-  if (selectedObject)
-    return <ObjectConsole selectedObject={selectedObject} />;
+  if (selectedObject) return <ObjectConsole selectedObject={selectedObject} />;
 
   if (!shipDetail) return null;
   return (
@@ -29,8 +28,12 @@ const Console = () => {
       <Stack gap={0}>
         <Box p={10}>
           <Group justify="space-between" wrap="nowrap" align="flex-start">
-            <Text fz={24} fw="bold">{shipDetail.title}</Text>
-            {shipDetail.isPrivate && <I icon={faLock} size="lg" style={{ marginTop: 6 }} />}
+            <Text fz={24} fw="bold">
+              {shipDetail.title}
+            </Text>
+            {shipDetail.isPrivate && (
+              <I icon={faLock} size="lg" style={{ marginTop: 6 }} />
+            )}
           </Group>
           <Text fz={16}>{shipDetail.description}</Text>
           {shipDetail.userId === user?.uid && (
@@ -39,14 +42,10 @@ const Console = () => {
               <span>Edit</span>
             </Button>
           )}
-          <Divider mt={10}/>
+          <Divider mt={10} />
         </Box>
       </Stack>
-      <ShipModalForm
-        opened={opened}
-        close={close}
-        editingShip={shipDetail}
-      />
+      <ShipModalForm opened={opened} close={close} editingShip={shipDetail} />
     </>
   );
 };

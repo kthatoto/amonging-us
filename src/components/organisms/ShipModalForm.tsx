@@ -43,12 +43,7 @@ interface Props {
 
 const ShipModalForm = ({ opened, close, editingShip }: Props) => {
   const { user } = useAuthStore();
-  const {
-    createShip,
-    updateShip,
-    getShips,
-    fetchShip,
-  } = useShipsStore();
+  const { createShip, updateShip, getShips, fetchShip } = useShipsStore();
 
   const {
     control,
@@ -162,11 +157,9 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
           fw={isPrivate ? "bold" : ""}
           c={isPrivate ? "red" : ""}
         >
-          {isPrivate ? (
-            "Available only to people who know the link"
-          ) : (
-            "Available to everyone"
-          )}
+          {isPrivate
+            ? "Available only to people who know the link"
+            : "Available to everyone"}
         </Text>
         <Button type="submit" fullWidth size="lg">
           <I icon={faRocket} />
