@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Box, Group, Image, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
 import { Comment as IComment } from "@/models/ship";
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const dummySrc = "https://lh3.googleusercontent.com/a/ACg8ocISAgqL0AWYtiS1K0UjC8atjUEDYiWMIZ_-J4nZ4_nzDQ=s288-c-no";
-const dummyName = "はとぴじょん";
+const dummyName = "はとぴじょんああああああ";
 
 const Comment = ({ comment, setEditingComment, isEditing }: Props) => {
   const { user } = useAuthStore();
@@ -29,6 +29,8 @@ const Comment = ({ comment, setEditingComment, isEditing }: Props) => {
   const onEdit = useCallback(() => {
     setEditingComment({ id: comment.id, text: comment.text });
   }, [setEditingComment, comment]);
+  const onDelete = useCallback(() => {
+  }, []);
 
   return (
     <Group
@@ -51,17 +53,22 @@ const Comment = ({ comment, setEditingComment, isEditing }: Props) => {
         src={dummySrc}
       />
       <Stack gap={0} flex={1}>
-        <Group justify="space-between" align="flex-start">
+        <Box pos="relative">
           <Box>
             <Text fz="sm">{dummyName}</Text>
             <Text fz="xs">{dateString}</Text>
           </Box>
           {(user?.uid === comment.userId) && hovered && (
-            <UnstyledButton onClick={onEdit} py={4} px={8}>
-              <I icon={faEdit} color="#666" />
-            </UnstyledButton>
+            <Group gap={0} pos="absolute" right={0} top={0}>
+              <UnstyledButton onClick={onEdit} py={4} px={8}>
+                <I icon={faEdit} color="#666" />
+              </UnstyledButton>
+              <UnstyledButton onClick={onDelete} py={4} px={8}>
+                <I icon={faTrash} color="#666" />
+              </UnstyledButton>
+            </Group>
           )}
-        </Group>
+        </Box>
         <Text fz="md" fw="bold">{comment.text}</Text>
       </Stack>
     </Group>
