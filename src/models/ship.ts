@@ -47,6 +47,9 @@ export interface ObjectDetail extends ObjectDoc {
 export interface Ship {
   id: string;
   title: string;
+  description: string;
+  userId: string;
+  isPrivate: boolean;
 }
 export interface ShipDetail extends Ship {
   objects: ObjectDoc[];
