@@ -2,8 +2,8 @@ import { update, ref } from "firebase/database";
 import { rtdb } from "@/firebase";
 import { UserInfo } from "firebase/auth";
 
-export const registerUser = (shipId: string, user: UserInfo) => {
-  update(ref(rtdb, `ships/${shipId}/users/${user.uid}`), {
+export const registerUser = async (shipId: string, user: UserInfo) => {
+  await update(ref(rtdb, `ships/${shipId}/users/${user.uid}`), {
     id: user.uid,
     name: user.displayName,
     photoURL: user.photoURL,
@@ -14,4 +14,4 @@ export const registerUser = (shipId: string, user: UserInfo) => {
   });
 };
 
-export const updateUser = (userId) => {};
+// export const updateUser = (userId) => {};
