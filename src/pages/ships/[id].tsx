@@ -1,9 +1,11 @@
-import { AppShell } from "@mantine/core";
+import { AppShell, Box } from "@mantine/core";
 // import { useParams } from "@/router";
+import { useController } from "@/hooks/useController";
 
 const Main = () => {
   return (
-    <h1>Ship</h1>
+    <Box w="100%" h="100vh">
+    </Box>
   );
 };
 
@@ -15,6 +17,8 @@ const Console = () => {
 
 const Ship = () => {
   // const { id } = useParams("/ships/:id");
+  useController();
+
   return (
     <AppShell
       aside={{ width: 300, breakpoint: "xs" }}
