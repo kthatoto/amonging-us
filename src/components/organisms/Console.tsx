@@ -5,31 +5,33 @@ import { faComments } from "@fortawesome/free-solid-svg-icons";
 import useShipsStore from "@/stores/shipsStore";
 import { deleteComment } from "@/models/comment";
 import Comment from "@/components/molecules/Comment";
-import CommentForm, { EditParams as CommentEditParams } from "@/components/organisms/CommentForm";
+import CommentForm, {
+  EditParams as CommentEditParams,
+} from "@/components/organisms/CommentForm";
 import { useParams } from "@/router";
 import { showSuccessNotification } from "@/utils/notifications";
 
 const Console = () => {
   const { id } = useParams("/ships/:id");
   const { selectedObject, selectObject } = useShipsStore();
-  const [editingComment, setEditingComment] = useState<CommentEditParams | undefined>();
+  const [editingComment, setEditingComment] = useState<
+    CommentEditParams | undefined
+  >();
 
-  const destroyComment = useCallback(async (commentId: string) => {
-    if (!selectedObject) return;
-    const objectId = selectedObject.id;
-    await deleteComment(id, objectId, commentId);
-    await selectObject(id, objectId);
-    showSuccessNotification("Deleted comment");
-  }, [selectedObject, id, selectObject]);
+  const destroyComment = useCallback(
+    async (commentId: string) => {
+      if (!selectedObject) return;
+      const objectId = selectedObject.id;
+      await deleteComment(id, objectId, commentId);
+      await selectObject(id, objectId);
+      showSuccessNotification("Deleted comment");
+    },
+    [selectedObject, id, selectObject],
+  );
 
   if (selectedObject) {
     return (
-      <Flex
-        justify="space-between"
-        direction="column"
-        h="100%"
-        p={20}
-      >
+      <Flex justify="space-between" direction="column" h="100%" p={20}>
         <Stack flex={1} gap={0} style={{ overflow: "hidden" }}>
           <Stack gap={10}>
             <Group align="top" wrap="nowrap">

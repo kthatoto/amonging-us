@@ -5,7 +5,7 @@ import {
   getDocs,
   query,
   orderBy,
-  where
+  where,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
@@ -48,7 +48,7 @@ export interface ShipDetail extends Ship {
 export const listShips = async () => {
   const shipDocsRef = query(
     collection(db, SHIPS_COLLECTION_NAME),
-    where("isPrivate", "!=", true)
+    where("isPrivate", "!=", true),
   );
   const shipDocs = await getDocs(shipDocsRef);
 
@@ -70,14 +70,20 @@ export const getShipDetail = async (id: string) => {
   return {
     id: shipDoc.id,
     ...shipDoc.data(),
-    objects: objectDocs.docs.map((objectDoc) => ({
-      id: objectDoc.id,
-      ...objectDoc.data(),
-    } as ObjectDoc)),
+    objects: objectDocs.docs.map(
+      (objectDoc) =>
+        ({
+          id: objectDoc.id,
+          ...objectDoc.data(),
+        }) as ObjectDoc,
+    ),
   } as ShipDetail;
 };
 
-export const getObjectDetail = async (id: string, objectId: string): Promise<ObjectDetail> => {
+export const getObjectDetail = async (
+  id: string,
+  objectId: string,
+): Promise<ObjectDetail> => {
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
   const objectDocRef = doc(shipDocRef, OBJECTS_COLLECTION_NAME, objectId);
 
@@ -92,10 +98,13 @@ export const getObjectDetail = async (id: string, objectId: string): Promise<Obj
   return {
     id: objectDoc.id,
     ...objectDoc.data(),
-    comments: commentDocs.docs.map((commentDoc) => ({
-      id: commentDoc.id,
-      ...commentDoc.data(),
-      createdAt: commentDoc.data().createdAt.toDate(),
-    }) as Comment),
+    comments: commentDocs.docs.map(
+      (commentDoc) =>
+        ({
+          id: commentDoc.id,
+          ...commentDoc.data(),
+          createdAt: commentDoc.data().createdAt.toDate(),
+        }) as Comment,
+    ),
   } as ObjectDetail;
 };

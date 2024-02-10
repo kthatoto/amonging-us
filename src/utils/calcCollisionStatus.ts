@@ -12,7 +12,11 @@ interface Diff {
   y: number;
 }
 
-export const calcCollisionStatus = (subject: Obstacle, opposite: Obstacle, diff: Diff) => {
+export const calcCollisionStatus = (
+  subject: Obstacle,
+  opposite: Obstacle,
+  diff: Diff,
+) => {
   const sTop = subject.y;
   const sBottom = subject.y + subject.height;
   const sLeft = subject.x;
@@ -47,16 +51,20 @@ export const calcCollisionStatus = (subject: Obstacle, opposite: Obstacle, diff:
     interactable: false,
   };
 
-  if (sTop < oTop) { // subjectの方が上、下側が衝突
+  if (sTop < oTop) {
+    // subjectの方が上、下側が衝突
     result.side.bottom = true;
   }
-  if (oTop < sTop) { // subjectの方が下、上側が衝突
+  if (oTop < sTop) {
+    // subjectの方が下、上側が衝突
     result.side.top = true;
   }
-  if (sLeft < oLeft) { // subjectの方が左、右側が衝突
+  if (sLeft < oLeft) {
+    // subjectの方が左、右側が衝突
     result.side.right = true;
   }
-  if (oLeft < sLeft) { // subjectの方が右、左側が衝突
+  if (oLeft < sLeft) {
+    // subjectの方が右、左側が衝突
     result.side.left = true;
   }
 
@@ -73,12 +81,20 @@ export const calcCollisionStatus = (subject: Obstacle, opposite: Obstacle, diff:
       result.interactable = true;
   }
 
-  if (!beforeCollisionVertical && afterCollisionVertical && afterCollisionHorizontal) {
+  if (
+    !beforeCollisionVertical &&
+    afterCollisionVertical &&
+    afterCollisionHorizontal
+  ) {
     result.y = true;
     if (result.side.top) result.restY = oBottom - sTop;
     if (result.side.bottom) result.restY = oTop - sBottom;
   }
-  if (!beforeCollisionHorizontal && afterCollisionHorizontal && afterCollisionVertical) {
+  if (
+    !beforeCollisionHorizontal &&
+    afterCollisionHorizontal &&
+    afterCollisionVertical
+  ) {
     result.x = true;
     if (result.side.left) result.restX = oRight - sLeft;
     if (result.side.right) result.restX = oLeft - sRight;

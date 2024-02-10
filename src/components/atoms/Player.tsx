@@ -41,7 +41,9 @@ const Player = () => {
           ta="center"
           fw="bold"
           style={{ lineHeight: PLAYER_SIZE + "px", fontSize: 24 }}
-        >{user.displayName?.at(0)}</Text>
+        >
+          {user.displayName?.at(0)}
+        </Text>
       )}
     </Box>
   );

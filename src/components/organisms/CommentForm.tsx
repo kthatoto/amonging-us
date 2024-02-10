@@ -82,7 +82,9 @@ const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
         />
         <Group>
           {isEditing && (
-            <Button onClick={() => cancelEdit?.()} flex={1} variant="default">Cancel</Button>
+            <Button onClick={() => cancelEdit?.()} flex={1} variant="default">
+              Cancel
+            </Button>
           )}
           <Button type="submit" flex={1}>
             {isEditing ? "Update" : "Submit"}

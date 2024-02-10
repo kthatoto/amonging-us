@@ -16,11 +16,7 @@ const Index = () => {
   return (
     <AppShell>
       <AppShell.Main bg="#efefef" p={40}>
-        {user ? (
-          <Button onClick={signOut}>Sing Out</Button>
-        ) : (
-          <SignIn />
-        )}
+        {user ? <Button onClick={signOut}>Sing Out</Button> : <SignIn />}
         <Space h={40} />
         <SimpleGrid cols={3}>
           {ships.map((ship) => (
@@ -33,7 +29,7 @@ const Index = () => {
         </SimpleGrid>
       </AppShell.Main>
     </AppShell>
-  )
+  );
 };
 
 export default Index;

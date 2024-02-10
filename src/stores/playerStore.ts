@@ -20,7 +20,7 @@ export default create<PlayerStore>((set) => {
         position: {
           x: state.position.x + xDiff,
           y: state.position.y + yDiff,
-        }
+        },
       }));
     },
     setPosition: (x, y) => {

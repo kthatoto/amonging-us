@@ -20,12 +20,12 @@ const Objekt = ({ objekt, mainRef }: Props) => {
   const { position, interactableObjectIds } = usePlayerStore();
   const { selectObject } = useShipsStore();
 
-  const top = objekt.y - position.y + ((mainRef.current?.clientHeight || 0) / 2);
-  const left = objekt.x - position.x + ((mainRef.current?.clientWidth || 0) / 2);
+  const top = objekt.y - position.y + (mainRef.current?.clientHeight || 0) / 2;
+  const left = objekt.x - position.x + (mainRef.current?.clientWidth || 0) / 2;
 
-  const interactable = useMemo(() =>
-    interactableObjectIds.includes(objekt.id),
-    [objekt.id, interactableObjectIds]
+  const interactable = useMemo(
+    () => interactableObjectIds.includes(objekt.id),
+    [objekt.id, interactableObjectIds],
   );
 
   return (

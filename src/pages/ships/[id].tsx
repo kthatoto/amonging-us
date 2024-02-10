@@ -21,7 +21,8 @@ const Main = () => {
     <Box
       id="main"
       ref={mainRef}
-      w="100%" h="100vh"
+      w="100%"
+      h="100vh"
       style={{
         overflow: "hidden",
         position: "relative",
@@ -37,9 +38,7 @@ const Main = () => {
 
 const Ship = () => {
   return (
-    <AppShell
-      aside={{ width: 300, breakpoint: "xs" }}
-    >
+    <AppShell aside={{ width: 300, breakpoint: "xs" }}>
       <AppShell.Main bg="#efefef">
         <Main />
       </AppShell.Main>

@@ -18,7 +18,11 @@ export interface CommentParams {
   userId: string;
 }
 
-export const createComment = async (shipId: string, objectId: string, params: CommentParams) => {
+export const createComment = async (
+  shipId: string,
+  objectId: string,
+  params: CommentParams,
+) => {
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, shipId);
   const objectDocRef = doc(shipDocRef, OBJECTS_COLLECTION_NAME, objectId);
   const commentDocsRef = collection(objectDocRef, COMMENTS_COLLECTION_NAME);
@@ -43,7 +47,11 @@ export const updateComment = async (
   });
 };
 
-export const deleteComment = async (shipId: string, objectId: string, commentId: string) => {
+export const deleteComment = async (
+  shipId: string,
+  objectId: string,
+  commentId: string,
+) => {
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, shipId);
   const objectDocRef = doc(shipDocRef, OBJECTS_COLLECTION_NAME, objectId);
   const commentDocRef = doc(objectDocRef, COMMENTS_COLLECTION_NAME, commentId);

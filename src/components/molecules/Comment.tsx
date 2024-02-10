@@ -17,16 +17,22 @@ interface Props {
   deleteComment: (commentId: string) => Promise<void>;
 }
 
-const dummySrc = "https://lh3.googleusercontent.com/a/ACg8ocISAgqL0AWYtiS1K0UjC8atjUEDYiWMIZ_-J4nZ4_nzDQ=s288-c-no";
+const dummySrc =
+  "https://lh3.googleusercontent.com/a/ACg8ocISAgqL0AWYtiS1K0UjC8atjUEDYiWMIZ_-J4nZ4_nzDQ=s288-c-no";
 const dummyName = "はとぴじょんああああああ";
 
-const Comment = ({ comment, setEditingComment, isEditing, deleteComment }: Props) => {
+const Comment = ({
+  comment,
+  setEditingComment,
+  isEditing,
+  deleteComment,
+}: Props) => {
   const { user } = useAuthStore();
   const { hovered, ref } = useHover();
 
   const dateString = useMemo(() => {
     return dayjs(comment.createdAt).format("YYYY/MM/DD HH:mm");
-  }, [comment.createdAt])
+  }, [comment.createdAt]);
 
   const onEdit = useCallback(() => {
     setEditingComment({ id: comment.id, text: comment.text });
@@ -46,7 +52,7 @@ const Comment = ({ comment, setEditingComment, isEditing, deleteComment }: Props
       ref={ref}
       style={{
         borderRadius: 6,
-        ...(isEditing ? { backgroundColor: COLORS.skyblue } : {})
+        ...(isEditing ? { backgroundColor: COLORS.skyblue } : {}),
       }}
     >
       <Image
@@ -62,7 +68,7 @@ const Comment = ({ comment, setEditingComment, isEditing, deleteComment }: Props
             <Text fz="sm">{dummyName}</Text>
             <Text fz="xs">{dateString}</Text>
           </Box>
-          {(user?.uid === comment.userId) && hovered && (
+          {user?.uid === comment.userId && hovered && (
             <Group gap={0} pos="absolute" right={0} top={0}>
               <UnstyledButton onClick={onEdit} py={4} px={8}>
                 <I icon={faEdit} color="#666" />
@@ -73,7 +79,9 @@ const Comment = ({ comment, setEditingComment, isEditing, deleteComment }: Props
             </Group>
           )}
         </Box>
-        <Text fz="md" fw="bold">{comment.text}</Text>
+        <Text fz="md" fw="bold">
+          {comment.text}
+        </Text>
       </Stack>
     </Group>
   );
