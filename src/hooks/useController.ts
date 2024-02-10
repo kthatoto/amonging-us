@@ -14,7 +14,7 @@ const RIGHT_KEYS = ["ArrowRight", "d"];
 const LEFT_KEYS = ["ArrowLeft", "a"];
 
 export const useController = () => {
-  const { move, position } = usePlayerStore();
+  const { move, position, setInteractableObjects } = usePlayerStore();
   const { shipDetail } = useShipsStore();
 
   const [pressingKeys, setPressingKeys] = useState<string[]>([]);
@@ -40,8 +40,10 @@ export const useController = () => {
       if (isDown) diff.y = TICK_DISTANCE;
       if (isRigth) diff.x = TICK_DISTANCE;
       if (isLeft) diff.x = -TICK_DISTANCE;
+      const isMoving = diff.x !== 0 || diff.y !== 0;
 
-      if (shipDetail?.objects && (diff.x !== 0 || diff.y !== 0)) {
+      const interactableIds: string[] = [];
+      if (shipDetail?.objects && (isMoving)) {
         shipDetail.objects.forEach((obj) => {
           const result = calcCollisionStatus(
             {
@@ -55,9 +57,11 @@ export const useController = () => {
           );
           if (result.x) diff.x = result.restX;
           if (result.y) diff.y = result.restY;
+          if (result.interactable) interactableIds.push(obj.id);
         });
       }
       if (diff.x !== 0 || diff.y !== 0) move(diff.x, diff.y);
+      if (isMoving) setInteractableObjects(interactableIds);
     },
     INTERVAL
   );
