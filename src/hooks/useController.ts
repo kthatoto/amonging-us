@@ -48,8 +48,12 @@ export const useController = () => {
     const isMoving = diff.x !== 0 || diff.y !== 0;
 
     const interactableIds: string[] = [];
-    if (shipDetail?.objects && isMoving) {
-      shipDetail.objects.forEach((obj) => {
+    const objects = [
+      ...(shipDetail?.objects || []),
+      ...(shipDetail?.walls || []),
+    ]
+    if (objects.length > 0 && isMoving) {
+      objects.forEach((obj) => {
         const result = calcCollisionStatus(
           {
             x: position.x - PLAYER_SIZE / 2,
@@ -62,7 +66,7 @@ export const useController = () => {
         );
         if (result.x) diff.x = result.restX;
         if (result.y) diff.y = result.restY;
-        if (result.interactable) interactableIds.push(obj.id);
+        if (!obj.isWall && result.interactable) interactableIds.push(obj.id);
       });
     }
     if (diff.x !== 0 || diff.y !== 0) move(diff.x, diff.y);

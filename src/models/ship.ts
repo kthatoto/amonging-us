@@ -33,6 +33,7 @@ export interface ObjectDoc {
   y: number;
   width: number;
   height: number;
+  isWall?: boolean;
 }
 export interface ObjectDetail extends ObjectDoc {
   title: string;
@@ -157,10 +158,10 @@ export const createShip = async (params: ShipParams) => {
   const shipDocsRef = collection(db, SHIPS_COLLECTION_NAME);
   const shipDocRef = await addDoc(shipDocsRef, params);
   const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
-  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 1000, height: 3000 });
-  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 3000, height: 1000 });
-  await addDoc(wallDocsRef, { x: 500, y: -1500, width: 1000, height: 3000 });
-  await addDoc(wallDocsRef, { x: -1500, y: 500, width: 3000, height: 1000 });
+  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 1000, height: 3000, isWall: true });
+  await addDoc(wallDocsRef, { x: -1500, y: -1500, width: 3000, height: 1000, isWall: true });
+  await addDoc(wallDocsRef, { x: 500, y: -1500, width: 1000, height: 3000, isWall: true });
+  await addDoc(wallDocsRef, { x: -1500, y: 500, width: 3000, height: 1000, isWall: true });
 };
 
 export const updateShip = async (id: string, params: ShipParams) => {
