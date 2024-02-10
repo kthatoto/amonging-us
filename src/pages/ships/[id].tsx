@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { AppShell, Box, Button, Stack } from "@mantine/core";
+import { AppShell, Box, Button, Group, Flex, Text } from "@mantine/core";
 import { useParams } from "@/router";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
@@ -36,11 +36,25 @@ const Main = () => {
 };
 
 const Console = () => {
+  const { selectedObject } = useShipsStore();
   return (
-    <Stack gap={20} p={10}>
-      <h1>Console</h1>
+    <Flex
+      justify="space-between"
+      direction="column"
+      h="100%"
+      p={20}
+    >
+      {selectedObject && (
+        <Group align="top" wrap="nowrap">
+          <Box w={80} h={80} style={{ minWidth: 80 }} bg="gray"></Box>
+          <Box flex={1}>
+            <Text>{selectedObject.title}</Text>
+          </Box>
+        </Group>
+      )}
+
       <Button component={Link} to="/">Top Page</Button>
-    </Stack>
+    </Flex>
   );
 };
 

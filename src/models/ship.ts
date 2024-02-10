@@ -16,8 +16,6 @@ export interface Comment {
   id: string;
   text: string;
   userId: string;
-  userName: string;
-  userImageUrl: string;
   createdAt: string;
 }
 
@@ -33,6 +31,8 @@ export interface ObjectDetail extends ObjectDoc {
   description: string;
   progress: number;
   comments: Comment[];
+  userId: string;
+  createdAt: string;
 }
 
 export interface Ship {
