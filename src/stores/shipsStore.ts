@@ -2,10 +2,14 @@ import { create } from "zustand";
 import { listShips, getShipDetail, Ship, ShipDetail } from "@/models/ship";
 
 interface ShipsStore {
-  shipDetail?: ShipDetail;
   ships: Ship[];
   getShips: () => Promise<void>;
+
+  shipDetail?: ShipDetail;
   rideShip: (id: string) => Promise<void>;
+
+  selectedObject?: ObjectDetail;
+  selectObject: (id: string, objectId: string) => Promise<void>;
 }
 
 export default create<ShipsStore>((set) => {
@@ -19,10 +23,18 @@ export default create<ShipsStore>((set) => {
     set({ shipDetail });
   };
 
+  const selectObject = async (id: string, objectId: string) => {
+    console.log(id, objectId);
+  };
+
   return {
-    shipDetail: undefined,
     ships: [],
     getShips,
+
+    shipDetail: undefined,
     rideShip,
+
+    selectedObject: undefined,
+    selectObject,
   };
 });
