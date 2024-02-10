@@ -1,6 +1,13 @@
 import { create } from "zustand";
 
-interface Mob {
+export interface Mob {
+  id: string;
+  name: string;
+  photoURL?: string;
+  position: {
+    x: number;
+    y: number;
+  };
 }
 
 interface MobsStore {

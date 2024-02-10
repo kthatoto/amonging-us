@@ -10,8 +10,7 @@ export const useMobs = (shipId: string) => {
     const usersRef = ref(rtdb, `ships/${shipId}/users`);
     onValue(usersRef, (snapshot) => {
       const newUsers = snapshot.val();
-      console.log(newUsers);
-      setMobs(newUsers);
+      setMobs(Object.values(newUsers));
     });
 
     return () => {

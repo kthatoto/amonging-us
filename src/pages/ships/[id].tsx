@@ -5,8 +5,10 @@ import Console from "@/components/organisms/Console";
 import Wall from "@/components/atoms/Wall";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
+import Mob from "@/components/atoms/Mob";
 import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
+import useMobsStore from "@/stores/mobsStore";
 import { useMobs } from "@/hooks/useMobs";
 
 const Main = () => {
@@ -14,6 +16,8 @@ const Main = () => {
   const { id } = useParams("/ships/:id");
   const { rideShip, shipDetail } = useShipsStore();
   const mainRef = useRef<HTMLDivElement>(null);
+
+  const { mobs } = useMobsStore();
 
   useEffect(() => {
     rideShip(id, user);
@@ -39,6 +43,9 @@ const Main = () => {
       ))}
       {shipDetail.objects.map((obj) => (
         <Objekt key={obj.id} objekt={obj} mainRef={mainRef} />
+      ))}
+      {mobs.map((mob) => (
+        <Mob key={mob.id} mob={mob} />
       ))}
       <Player />
     </Box>
