@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button, Group, Stack, Textarea } from "@mantine/core";
+import { Button, Group, Stack, Text, Textarea } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -70,7 +70,11 @@ const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
           name="text"
           render={({ field }) => (
             <Textarea
-              label={isEditing ? "Edit Comment" : "New Comment"}
+              label={
+                <Text fw="bold" fz="lg" my={8}>
+                  {isEditing ? "Edit Comment" : "New Comment"}
+                </Text>
+              }
               error={errors.text?.message}
               {...field}
             />

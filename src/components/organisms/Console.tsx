@@ -19,43 +19,42 @@ const Console = () => {
         direction="column"
         h="100%"
         p={20}
-        gap={10}
       >
-        <Box flex={1} style={{ overflow: "hidden" }}>
-          <Stack gap={20}>
-            <Stack gap={10}>
-              <Group align="top" wrap="nowrap">
-                <Box w={80} h={80} style={{ minWidth: 80 }} bg="gray"></Box>
-                <Box flex={1}>
-                  <Text fw="bold">{selectedObject.title}</Text>
-                  {/* TODO: 誰が作ったか */}
-                </Box>
-              </Group>
-              <Text fz="sm">{selectedObject.description}</Text>
-            </Stack>
+        <Stack flex={1} gap={0} style={{ overflow: "hidden" }}>
+          <Stack gap={10}>
+            <Group align="top" wrap="nowrap">
+              <Box w={80} h={80} style={{ minWidth: 80 }} bg="gray"></Box>
+              <Box flex={1}>
+                <Text fw="bold">{selectedObject.title}</Text>
+                {/* TODO: 誰が作ったか */}
+              </Box>
+            </Group>
+            <Text fz="sm">{selectedObject.description}</Text>
+            <Text fw="bold" fz="lg">
+              <I icon={faComments} style={{ marginRight: 4 }} />
+              <span>Comments ({selectedObject.comments.length})</span>
+            </Text>
+          </Stack>
 
-            <Divider />
+          <Divider />
 
-            <Stack gap={10}>
-              <Text fw="bold" fz="lg">
-                <I icon={faComments} style={{ marginRight: 4 }} />
-                <span>Comments</span>
-              </Text>
-              <Stack gap={16}>
-                {selectedObject.comments.map((comment) => (
-                  <Comment
-                    key={comment.id}
-                    comment={comment}
-                    setEditingComment={setEditingComment}
-                  />
-                ))}
-                {selectedObject.comments.length === 0 && (
-                  <Text c="gray">No Comments yet</Text>
-                )}
-              </Stack>
+          <Stack gap={10} py={10} style={{ overflow: "scroll" }}>
+            <Stack gap={16}>
+              {selectedObject.comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  setEditingComment={setEditingComment}
+                />
+              ))}
+              {selectedObject.comments.length === 0 && (
+                <Text c="gray">No Comments yet</Text>
+              )}
             </Stack>
           </Stack>
-        </Box>
+        </Stack>
+
+        <Divider />
 
         {editingComment ? (
           <CommentForm
