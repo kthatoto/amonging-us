@@ -1,7 +1,8 @@
-import { Box, Image, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 import useAuthStore from "@/stores/authStore";
 import { useController } from "@/hooks/useController";
 import { PLAYER_SIZE } from "@/constants";
+import UserIcon from "@/components/atoms/UserIcon";
 
 const commonStyle = {
   width: PLAYER_SIZE,
@@ -28,24 +29,15 @@ const Player = () => {
     );
   }
   return (
-    <Box
-      style={{
-        ...commonStyle,
-        backgroundColor: "skyblue",
+    <UserIcon
+      user={{
+        id: user.uid,
+        name: user.displayName || "",
+        photoURL: user.photoURL || "",
       }}
-    >
-      {user.photoURL ? (
-        <Image w="100%" h="100%" radius="50%" src={user.photoURL} />
-      ) : (
-        <Text
-          ta="center"
-          fw="bold"
-          style={{ lineHeight: PLAYER_SIZE + "px", fontSize: 24 }}
-        >
-          {user.displayName?.at(0)}
-        </Text>
-      )}
-    </Box>
+      size={PLAYER_SIZE}
+      style={commonStyle}
+    />
   );
 };
 
