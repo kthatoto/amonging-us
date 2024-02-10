@@ -1,5 +1,6 @@
-import { Image } from "@mantine/core";
+import { Box, Image, Text } from "@mantine/core";
 import { UserDoc } from "@/models/user";
+import { generateColor } from "@/utils/generateColor";
 
 interface Props {
   user: UserDoc;
@@ -17,7 +18,17 @@ const UserIcon = ({ user, size }: Props) => {
       <Image src={user.photoURL} w={size} h={size} style={commonStyle} />
     );
   }
-  return null;
+  return (
+    <Box w={size} h={size} style={commonStyle} bg={generateColor(user.id)}>
+      <Text
+        ta="center"
+        fw="bold"
+        style={{ lineHeight: size + "px", fontSize: size * 0.7 }}
+      >
+        {user.name?.at(0)}
+      </Text>
+    </Box>
+  )
 };
 
 export default UserIcon;
