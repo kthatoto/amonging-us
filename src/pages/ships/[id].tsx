@@ -27,8 +27,8 @@ const Main = () => {
         position: "relative",
       }}
     >
-      {shipDetail.objects.map((obj, i) => (
-        <Objekt key={i} objekt={obj} mainRef={mainRef} />
+      {shipDetail.objects.map((obj) => (
+        <Objekt key={obj.id} objekt={obj} mainRef={mainRef} />
       ))}
       <Player />
     </Box>
