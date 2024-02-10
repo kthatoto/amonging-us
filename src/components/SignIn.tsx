@@ -6,9 +6,8 @@ import useAuthStore from "@/stores/authStore";
 const SignIn = () => {
   const { signInWithGoogle } = useAuthStore();
   return (
-    <Button onClick={signInWithGoogle} size="md">
-      <I icon={faG} />
-      <span style={{ marginLeft: 2 }}>oogleログイン</span>
+    <Button onClick={signInWithGoogle} size="md" leftSection={<I icon={faG} />}>
+      <span>Sign in with Google</span>
     </Button>
   );
 };

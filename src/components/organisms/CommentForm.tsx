@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button, Group, Stack, Text, Textarea } from "@mantine/core";
+import { Button, Divider, Group, Stack, Text, Textarea } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import { showSuccessNotification } from "@/utils/notifications";
 import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
 import { createComment, updateComment } from "@/models/comment";
+import SignIn from "@/components/SignIn";
 
 export interface EditParams {
   id: string;
@@ -76,6 +77,7 @@ const CommentForm = ({
           name="text"
           render={({ field }) => (
             <Textarea
+              disabled={!user}
               label={
                 <Text fw="bold" fz="lg" my={8}>
                   {isEditing ? "Edit Comment" : "New Comment"}
@@ -92,10 +94,18 @@ const CommentForm = ({
               Cancel
             </Button>
           )}
-          <Button type="submit" flex={1}>
-            {isEditing ? "Update" : "Submit"}
-          </Button>
+          {user && (
+            <Button type="submit" flex={1} disabled={!user}>
+              {isEditing ? "Update" : "Submit"}
+            </Button>
+          )}
         </Group>
+        {!user && (
+          <Stack gap={0}>
+            <Text ta="center" c="gray">Please sign-in to comment</Text>
+            <SignIn />
+          </Stack>
+        )}
       </Stack>
     </form>
   );
