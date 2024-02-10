@@ -2,7 +2,9 @@ import { useCallback, useMemo } from "react";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Box, Group, Image, Stack, Text, UnstyledButton } from "@mantine/core";
+import { useHover } from "@mantine/hooks";
 import { Comment as IComment } from "@/models/ship";
+import useAuthStore from "@/stores/authStore";
 // @ts-expect-error: dayjs
 import dayjs from "dayjs";
 import { EditParams as CommentEditParams } from "@/components/organisms/CommentForm";
@@ -16,6 +18,9 @@ const dummySrc = "https://lh3.googleusercontent.com/a/ACg8ocISAgqL0AWYtiS1K0UjC8
 const dummyName = "はとぴじょん";
 
 const Comment = ({ comment, setEditingComment }: Props) => {
+  const { user } = useAuthStore();
+  const { hovered, ref } = useHover();
+
   const dateString = useMemo(() => {
     return dayjs(comment.createdAt).format("YYYY/MM/DD HH:mm");
   }, [comment.createdAt])
@@ -24,7 +29,7 @@ const Comment = ({ comment, setEditingComment }: Props) => {
   }, [setEditingComment, comment]);
 
   return (
-    <Group gap={8} wrap="nowrap" align="top" w="100%">
+    <Group gap={8} wrap="nowrap" align="top" w="100%" ref={ref}>
       <Image
         w={35}
         h={35}
@@ -38,9 +43,11 @@ const Comment = ({ comment, setEditingComment }: Props) => {
             <Text fz="sm">{dummyName}</Text>
             <Text fz="xs">{dateString}</Text>
           </Box>
-          <UnstyledButton onClick={onEdit}>
-            <I icon={faEdit} size="sm" color="gray" />
-          </UnstyledButton>
+          {(user?.uid === comment.userId) && hovered && (
+            <UnstyledButton onClick={onEdit}>
+              <I icon={faEdit} size="sm" color="gray" />
+            </UnstyledButton>
+          )}
         </Group>
         <Text fz="md" fw="bold">{comment.text}</Text>
       </Stack>
