@@ -4,9 +4,10 @@ import useShipsStore from "@/stores/shipsStore";
 import { useInterval } from "@/utils/useInterval";
 import { calcCollisionStatus } from "@/utils/calcCollisionStatus";
 import { PLAYER_SIZE } from "@/constants";
+import { updateUser } from "@/database/user";
 
-const INTERVAL = 20;
-const TICK_DISTANCE = 8;
+const INTERVAL = 30;
+const TICK_DISTANCE = 10;
 
 const UP_KEYS = ["ArrowUp", "w"];
 const DOWN_KEYS = ["ArrowDown", "s"];
@@ -15,11 +16,12 @@ const LEFT_KEYS = ["ArrowLeft", "a"];
 
 const STOP_MOVE_TAGS = ["INPUT", "TEXTAREA"];
 
-export const useController = () => {
+export const useController = (userId: string) => {
   const { move, position, setInteractableObjects } = usePlayerStore();
   const { shipDetail, selectedObject, clearObject } = useShipsStore();
 
   const [pressingKeys, setPressingKeys] = useState<string[]>([]);
+  const [counter, setCounter] = useState<number>(0);
 
   const handleKeydown = useCallback(
     (e: KeyboardEvent) => {
@@ -37,6 +39,7 @@ export const useController = () => {
   );
 
   useInterval(async () => {
+    setCounter(counter + 1);
     if (STOP_MOVE_TAGS.includes(document.activeElement?.tagName || "")) {
       return;
     }
@@ -74,7 +77,15 @@ export const useController = () => {
         if (!obj.isWall && result.interactable) interactableIds.push(obj.id);
       });
     }
-    if (diff.x !== 0 || diff.y !== 0) move(diff.x, diff.y);
+    if (diff.x !== 0 || diff.y !== 0) {
+      move(diff.x, diff.y);
+      if (counter > 100) {
+        setCounter(0);
+        if (shipDetail) {
+          updateUser(shipDetail.id, userId, { x: position.x + diff.x, y: position.y + diff.y });
+        }
+      }
+    }
     if (isMoving) setInteractableObjects(interactableIds);
     if (isMoving && selectedObject && !interactableIds.includes(selectedObject.id)) {
       clearObject();
