@@ -1,9 +1,9 @@
+import { useRef } from "react";
 import { AppShell, Box } from "@mantine/core";
 // import { useParams } from "@/router";
 import { useController } from "@/hooks/useController";
 import Objekt from "@/components/atoms/Objekt";
 import useObjectsStore from "@/stores/objectsStore";
-import {useRef} from "react";
 
 const Main = () => {
   const { objects } = useObjectsStore();
