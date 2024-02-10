@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import usePlayerStore from "@/stores/playerStore";
 import { useInterval } from "@/utils/useInterval";
 
-const INTERVAL = 100;
-const TICK_DISTANCE = 3;
+const INTERVAL = 20;
+const TICK_DISTANCE = 8;
 
 const UP_KEYS = ["ArrowUp", "w"];
 const DOWN_KEYS = ["ArrowDown", "s"];
@@ -35,7 +35,7 @@ export const useController = () => {
       if (isUp) diff.y -= TICK_DISTANCE;
       if (isDown) diff.y += TICK_DISTANCE;
       if (isRigth) diff.x += TICK_DISTANCE;
-      if (isLeft) diff.y -= TICK_DISTANCE;
+      if (isLeft) diff.x -= TICK_DISTANCE;
       move(diff.x, diff.y);
     },
     INTERVAL

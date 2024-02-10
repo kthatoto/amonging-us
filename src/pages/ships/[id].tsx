@@ -10,11 +10,14 @@ const Main = () => {
   return (
     <Box
       w="100%" h="100vh"
-      style={{ overflow: "hidden" }}
+      style={{
+        overflow: "hidden",
+        position: "relative",
+      }}
     >
-      {objects.map((obj) => {
-        <Objekt objekt={obj} />
-      })}
+      {objects.map((obj, i) => (
+        <Objekt key={i} objekt={obj} />
+      ))}
     </Box>
   );
 };
