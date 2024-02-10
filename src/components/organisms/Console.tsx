@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Group, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
-import { faEdit, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faLock, faUsers } from "@fortawesome/free-solid-svg-icons";
 import useShipsStore from "@/stores/shipsStore";
 import useAuthStore from "@/stores/authStore";
 import ShipModalForm from "@/components/organisms/ShipModalForm";
@@ -40,6 +40,11 @@ const Console = () => {
           <Divider mt={10} />
         </Box>
         <Box px={10} flex={1} style={{ overflow: "scroll" }}>
+          <Text fz={16} fw="bold" mt={4}>
+            <I icon={faUsers} />
+            <span style={{ marginLeft: 8, marginRight: 8 }}>Members</span>
+            <span>({shipDetail.users.length})</span>
+          </Text>
           {shipDetail.users.map((u) => (
             <Group wrap="nowrap" align="flex-start">
               <UserIcon user={u} size={30}/>
