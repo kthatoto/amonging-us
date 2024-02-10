@@ -11,11 +11,7 @@ import { Link } from "react-router-dom";
 
 const Console = () => {
   const { user } = useAuthStore();
-  const {
-    shipDetail,
-    selectedObject,
-    users,
-  } = useShipsStore();
+  const { shipDetail, selectedObject } = useShipsStore();
 
   const [opened, { open, close }] = useDisclosure();
 
@@ -44,7 +40,7 @@ const Console = () => {
           <Divider mt={10} />
         </Box>
         <Box px={10} flex={1} style={{ overflow: "scroll" }}>
-          {users.map((u) => (
+          {shipDetail.users.map((u) => (
             <Group wrap="nowrap" align="flex-start">
               <UserIcon user={u} size={30}/>
               <Text flex={1} pt={4}>{u.name}</Text>

@@ -89,10 +89,12 @@ export const getShipDetail = async (id: string) => {
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
   const objectDocsRef = collection(shipDocRef, OBJECTS_COLLECTION_NAME);
   const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
+  const userDocsRef = collection(shipDocRef, USERS_COLLECTION_NAME);
 
   const shipDoc = await getDoc(shipDocRef);
   const objectDocs = await getDocs(objectDocsRef);
   const wallDocs = await getDocs(wallDocsRef);
+  const userDocs = await getDocs(userDocsRef);
 
   return {
     id: shipDoc.id,
@@ -111,6 +113,10 @@ export const getShipDetail = async (id: string) => {
           ...wallDoc.data(),
         }) as ObjectDoc,
     ),
+    users: userDocs.docs.map((userDoc) => ({
+      id: userDoc.id,
+      ...userDoc.data(),
+    } as UserDoc)),
   } as ShipDetail;
 };
 
@@ -149,19 +155,6 @@ export const join = async (id: string, userId: string) => {
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
   const userDocRef = doc(shipDocRef, USERS_COLLECTION_NAME, userId);
   await setDoc(userDocRef, userData);
-};
-
-export const getShipUsers = async (id: string) => {
-  const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
-  const userDocsRef = collection(shipDocRef, USERS_COLLECTION_NAME);
-  const userDocs = await getDocs(userDocsRef);
-  return userDocs.docs.map(
-    (userDoc) =>
-      ({
-        id: userDoc.id,
-        ...userDoc.data(),
-      }) as UserDoc,
-  );
 };
 
 export interface ShipParams {

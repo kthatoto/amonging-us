@@ -7,12 +7,10 @@ import {
   ShipDetail,
   ObjectDetail,
   join,
-  getShipUsers,
   createShip,
   updateShip,
   ShipParams,
 } from "@/models/ship";
-import { UserDoc } from "@/models/user";
 import { registerUser } from "@/database/user";
 import { UserInfo } from "firebase/auth";
 
@@ -28,8 +26,6 @@ interface ShipsStore {
 
   selectedObject?: ObjectDetail;
   selectObject: (id: string, objectId: string) => Promise<void>;
-
-  users: UserDoc[];
 }
 
 export default create<ShipsStore>((set) => {
@@ -39,13 +35,12 @@ export default create<ShipsStore>((set) => {
   };
 
   const rideShip = async (id: string, user: UserInfo | null) => {
-    const [shipDetail, users] = await Promise.all([
+    if (user) await join(id, user.uid);
+    const [shipDetail] = await Promise.all([
       getShipDetail(id),
-      getShipUsers(id),
-      user ? join(id, user.uid) : undefined,
       user ? registerUser(id, user) : undefined,
     ]);
-    set({ shipDetail, users });
+    set({ shipDetail });
   };
   const fetchShip = async (id: string) => {
     const shipDetail = await getShipDetail(id);
@@ -69,7 +64,5 @@ export default create<ShipsStore>((set) => {
 
     selectedObject: undefined,
     selectObject,
-
-    users: [],
   };
 });
