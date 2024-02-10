@@ -4,6 +4,7 @@ import {
   getDoc,
   getDocs,
   query,
+  orderBy,
   where
 } from "firebase/firestore";
 import { db } from "@/firebase";
@@ -81,7 +82,10 @@ export const getObjectDetail = async (id: string, objectId: string): Promise<Obj
   const objectDocRef = doc(shipDocRef, OBJECTS_COLLECTION_NAME, objectId);
 
   const objectDoc = await getDoc(objectDocRef);
-  const commentDocsRef = collection(objectDocRef, COMMENTS_COLLECTION_NAME);
+  const commentDocsRef = query(
+    collection(objectDocRef, COMMENTS_COLLECTION_NAME),
+    orderBy("createdAt", "desc"),
+  );
 
   const commentDocs = await getDocs(commentDocsRef);
 
