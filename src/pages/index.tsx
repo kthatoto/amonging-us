@@ -72,7 +72,7 @@ const Index = () => {
                     <span>({ship.users.length})</span>
                   </Text>
                   <Group gap={2}>
-                    {ship.users.map((user) => <UserIcon user={user} size={35} />)}
+                    {ship.users.map((user) => <UserIcon key={user.id} user={user} size={35} />)}
                   </Group>
                 </Stack>
               </Card>

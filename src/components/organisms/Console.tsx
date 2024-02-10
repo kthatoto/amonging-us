@@ -46,7 +46,7 @@ const Console = () => {
             <span>({shipDetail.users.length})</span>
           </Text>
           {shipDetail.users.map((u) => (
-            <Group wrap="nowrap" align="flex-start">
+            <Group key={u.id} wrap="nowrap" align="flex-start">
               <UserIcon user={u} size={30}/>
               <Text flex={1} pt={4}>{u.name}</Text>
             </Group>

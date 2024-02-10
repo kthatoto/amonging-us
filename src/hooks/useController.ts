@@ -35,6 +35,7 @@ export const useController = () => {
   );
 
   useInterval(async () => {
+    // console.log(document.activeElement.tagName);
     const isUp = UP_KEYS.some((k) => pressingKeys.includes(k));
     const isDown = DOWN_KEYS.some((k) => pressingKeys.includes(k));
     const isRigth = RIGHT_KEYS.some((k) => pressingKeys.includes(k));
