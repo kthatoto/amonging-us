@@ -10,6 +10,7 @@ import {
   getShipUsers,
   createShip,
   updateShip,
+  ShipParams,
 } from "@/models/ship";
 import { UserDoc } from "@/models/user";
 import { registerUser } from "@/database/user";
@@ -18,6 +19,8 @@ import { UserInfo } from "firebase/auth";
 interface ShipsStore {
   ships: Ship[];
   getShips: () => Promise<void>;
+  createShip: (params: ShipParams) => Promise<void>;
+  updateShip: (id: string, params: ShipParams) => Promise<void>;
 
   shipDetail?: ShipDetail;
   rideShip: (id: string, user: UserInfo | null) => Promise<void>;

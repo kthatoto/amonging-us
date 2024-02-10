@@ -35,7 +35,7 @@ interface Props {
 
 const ShipModalForm = ({ opened, close, editingShip }: Props) => {
   const { user } = useAuthStore();
-  const { createShip, updateShip, listShips } = useShipsStore();
+  const { createShip, updateShip, getShips } = useShipsStore();
 
   const {
     control,
@@ -67,7 +67,7 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
       await createShip({ ...params, userId: user.uid });
       showSuccessNotification("Created new ship!");
       close();
-      await listShips();
+      await getShips();
     }
     reset();
   });
