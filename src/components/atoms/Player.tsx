@@ -1,11 +1,11 @@
 import { Box, Image, Text } from "@mantine/core";
 import useAuthStore from "@/stores/authStore";
 import { useController } from "@/hooks/useController";
+import { PLAYER_SIZE } from "@/constants";
 
-const ICON_SIZE = 50;
 const commonStyle = {
-  width: ICON_SIZE,
-  height: ICON_SIZE,
+  width: PLAYER_SIZE,
+  height: PLAYER_SIZE,
   margin: "auto",
   inset: 0,
   position: "absolute",
@@ -40,7 +40,7 @@ const Player = () => {
         <Text
           ta="center"
           fw="bold"
-          style={{ lineHeight: ICON_SIZE + "px", fontSize: 24 }}
+          style={{ lineHeight: PLAYER_SIZE + "px", fontSize: 24 }}
         >{user.displayName?.at(0)}</Text>
       )}
     </Box>

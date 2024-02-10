@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import usePlayerStore from "@/stores/playerStore";
+import useShipsStore from "@/stores/shipsStore";
 import { useInterval } from "@/utils/useInterval";
+import { calcCollisionStatus } from "@/utils/calcCollisionStatus";
+import { PLAYER_SIZE } from "@/constants";
 
 const INTERVAL = 20;
 const TICK_DISTANCE = 8;
@@ -11,7 +14,8 @@ const RIGHT_KEYS = ["ArrowRight", "d"];
 const LEFT_KEYS = ["ArrowLeft", "a"];
 
 export const useController = () => {
-  const { move } = usePlayerStore();
+  const { move, position } = usePlayerStore();
+  const { shipDetail } = useShipsStore();
 
   const [pressingKeys, setPressingKeys] = useState<string[]>([]);
 
@@ -36,7 +40,19 @@ export const useController = () => {
       if (isDown) diff.y += TICK_DISTANCE;
       if (isRigth) diff.x += TICK_DISTANCE;
       if (isLeft) diff.x -= TICK_DISTANCE;
-      move(diff.x, diff.y);
+
+      if (shipDetail?.objects && (diff.x !== 0 || diff.y !== 0)) {
+        shipDetail.objects.forEach((obj) => {
+          if (diff.x === 0 && diff.y === 0) return;
+          const result = calcCollisionStatus(
+            { x: position.x, y: position.y, width: PLAYER_SIZE, height: PLAYER_SIZE },
+            obj
+          );
+          if (result.x) diff.x = 0;
+          if (result.y) diff.y = 0;
+        });
+      }
+      if (diff.x !== 0 || diff.y !== 0) move(diff.x, diff.y);
     },
     INTERVAL
   );
