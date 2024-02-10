@@ -51,6 +51,7 @@ export interface Ship {
   description: string;
   userId: string;
   isPrivate: boolean;
+  users: UserDoc[];
 }
 export interface ShipDetail extends Ship {
   objects: ObjectDoc[];
@@ -64,10 +65,22 @@ export const listShips = async (userId: string) => {
   );
   const shipDocs = await getDocs(shipDocsRef);
 
-  return shipDocs.docs.map((shipDoc) => {
+  const usersDocs = await Promise.all(
+    shipDocs.docs.map(async (shipDoc) => {
+      const userDocsRef = collection(shipDoc.ref, USERS_COLLECTION_NAME);
+      const userDocs = await getDocs(userDocsRef);
+      return userDocs.docs.map((userDoc) => ({
+        id: userDoc.id,
+        ...userDoc.data(),
+      } as UserDoc));
+    })
+  );
+
+  return shipDocs.docs.map((shipDoc, i) => {
     return {
       id: shipDoc.id,
       ...shipDoc.data(),
+      users: usersDocs[i],
     } as Ship;
   });
 };

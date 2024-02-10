@@ -5,12 +5,14 @@ import {
   Button,
   Card,
   Center,
+  Group,
   SimpleGrid,
   Space,
+  Stack,
   Text,
 } from "@mantine/core";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useDisclosure } from "@mantine/hooks";
 import SignIn from "@/components/SignIn";
 import useAuthStore from "@/stores/authStore";
@@ -49,9 +51,19 @@ const Index = () => {
             </Card>
           )}
           {ships.map((ship) => (
-            <Link key={ship.id} to={`/ships/${ship.id}`}>
+            <Link key={ship.id} to={`/ships/${ship.id}`} style={{ textDecoration: "none" }}>
               <Card shadow="sm" h={200}>
-                <Text>{ship.title}</Text>
+                <Stack gap={4}>
+                  <Group justify="space-between" wrap="nowrap" align="flex-start">
+                    <Text fz={20} fw="bold">{ship.title}</Text>
+                    {ship.isPrivate && (
+                      <I icon={faLock} size="lg" style={{ marginTop: 2 }} />
+                    )}
+                  </Group>
+                  {ship.description && (
+                    <Text>{ship.description}</Text>
+                  )}
+                </Stack>
               </Card>
             </Link>
           ))}
