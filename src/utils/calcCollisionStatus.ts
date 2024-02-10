@@ -1,3 +1,5 @@
+import { INTERACTABLE_DISTANCE } from "@/constants";
+
 interface Obstacle {
   x: number;
   y: number;
@@ -46,12 +48,24 @@ export const calcCollisionStatus = (subject: Obstacle, opposite: Obstacle, diff:
   };
 
   if (afterCollisionVertical) {
-    if (sTop < oTop) result.side.bottom = true; // subjectの方が上、下側が衝突
-    if (oTop < sTop) result.side.top = true; // subjectの方が下、上側が衝突
+    if (sTop < oTop) { // subjectの方が上、下側が衝突
+      result.side.bottom = true;
+      if (oTop - sdBottom < INTERACTABLE_DISTANCE) result.interactable = true;
+    }
+    if (oTop < sTop) { // subjectの方が下、上側が衝突
+      result.side.top = true;
+      if (sdTop - oBottom < INTERACTABLE_DISTANCE) result.interactable = true;
+    }
   }
   if (afterCollisionHorizontal) {
-    if (sLeft < oLeft) result.side.right = true; // subjectの方が左、右側が衝突
-    if (oLeft < sLeft) result.side.left = true; // subjectの方が右、左側が衝突
+    if (sLeft < oLeft) { // subjectの方が左、右側が衝突
+      result.side.right = true;
+      if (oLeft - sdRight < INTERACTABLE_DISTANCE) result.interactable = true;
+    }
+    if (oLeft < sLeft) { // subjectの方が右、左側が衝突
+      result.side.left = true;
+      if (sdLeft - oRight < INTERACTABLE_DISTANCE) result.interactable = true;
+    }
   }
 
   if (!beforeCollisionVertical && afterCollisionVertical && afterCollisionHorizontal) {
