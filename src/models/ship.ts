@@ -6,13 +6,16 @@ import {
   query,
   orderBy,
   where,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
   SHIPS_COLLECTION_NAME,
   OBJECTS_COLLECTION_NAME,
   COMMENTS_COLLECTION_NAME,
+  USERS_COLLECTION_NAME,
 } from "@/constants";
+import { getUser, UserDoc } from "@/models/user";
 
 export interface Comment {
   id: string;
@@ -107,4 +110,22 @@ export const getObjectDetail = async (
         }) as Comment,
     ),
   } as ObjectDetail;
+};
+
+export const join = async (id: string, userId: string) => {
+  const userData = await getUser(userId);
+
+  const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
+  const userDocRef = collection(shipDocRef, USERS_COLLECTION_NAME);
+  await addDoc(userDocRef, userData);
+};
+
+export const getShipUsers = async (id: string) => {
+  const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
+  const userDocsRef = collection(shipDocRef, USERS_COLLECTION_NAME);
+  const userDocs = await getDocs(userDocsRef);
+  return userDocs.docs.map((userDoc) => ({
+    id: userDoc.id,
+    ...userDoc.data(),
+  } as UserDoc));
 };

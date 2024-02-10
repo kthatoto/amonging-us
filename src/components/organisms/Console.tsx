@@ -88,6 +88,7 @@ const Console = () => {
       </Flex>
     );
   }
+  return <></>;
 };
 
 export default Console;

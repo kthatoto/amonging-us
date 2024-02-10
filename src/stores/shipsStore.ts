@@ -6,7 +6,10 @@ import {
   Ship,
   ShipDetail,
   ObjectDetail,
+  join,
+  getShipUsers,
 } from "@/models/ship";
+import { UserDoc } from "@/models/user";
 
 interface ShipsStore {
   ships: Ship[];
@@ -17,6 +20,9 @@ interface ShipsStore {
 
   selectedObject?: ObjectDetail;
   selectObject: (id: string, objectId: string) => Promise<void>;
+
+  users: UserDoc[];
+  joinShip: (id: string, userId: string) => Promise<void>;
 }
 
 export default create<ShipsStore>((set) => {
@@ -26,13 +32,20 @@ export default create<ShipsStore>((set) => {
   };
 
   const rideShip = async (id: string) => {
-    const shipDetail = await getShipDetail(id);
-    set({ shipDetail });
+    const [shipDetail, users] = await Promise.all([
+      getShipDetail(id),
+      getShipUsers(id),
+    ]);
+    set({ shipDetail, users });
   };
 
   const selectObject = async (id: string, objectId: string) => {
     const objectDetail = await getObjectDetail(id, objectId);
     set({ selectedObject: objectDetail });
+  };
+
+  const joinShip = async (id: string, userId: string) => {
+    await join(id, userId);
   };
 
   return {
@@ -44,5 +57,8 @@ export default create<ShipsStore>((set) => {
 
     selectedObject: undefined,
     selectObject,
+
+    users: [],
+    joinShip,
   };
 });

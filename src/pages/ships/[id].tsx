@@ -4,16 +4,19 @@ import { useParams } from "@/router";
 import Console from "@/components/organisms/Console";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
+import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
 
 const Main = () => {
+  const { user } = useAuthStore();
   const { id } = useParams("/ships/:id");
-  const { rideShip, shipDetail } = useShipsStore();
+  const { rideShip, shipDetail, joinShip } = useShipsStore();
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     rideShip(id);
-  }, [rideShip, id]);
+    if (user) joinShip(id, user.uid);
+  }, [rideShip, id, user, joinShip]);
 
   if (!shipDetail) return null;
 
