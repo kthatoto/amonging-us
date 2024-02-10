@@ -44,9 +44,10 @@ const Main = () => {
       {shipDetail.objects.map((obj) => (
         <Objekt key={obj.id} objekt={obj} mainRef={mainRef} />
       ))}
-      {mobs.map((mob) => (
-        <Mob key={mob.id} mob={mob} />
-      ))}
+      {mobs.map((mob) => {
+        if (mob.id === user?.uid) return null;
+        return <Mob key={mob.id} mob={mob} mainRef={mainRef} />
+      })}
       <Player />
     </Box>
   );
