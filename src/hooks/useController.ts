@@ -16,7 +16,7 @@ const LEFT_KEYS = ["ArrowLeft", "a"];
 
 const STOP_MOVE_TAGS = ["INPUT", "TEXTAREA"];
 
-export const useController = (userId: string) => {
+export const useController = (userId?: string) => {
   const { move, position, setInteractableObjects } = usePlayerStore();
   const { shipDetail, selectedObject, clearObject } = useShipsStore();
 
@@ -81,7 +81,7 @@ export const useController = (userId: string) => {
       move(diff.x, diff.y);
       if (counter > 100) {
         setCounter(0);
-        if (shipDetail) {
+        if (shipDetail && userId) {
           updateUser(shipDetail.id, userId, { x: position.x + diff.x, y: position.y + diff.y });
         }
       }
