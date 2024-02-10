@@ -8,6 +8,7 @@ import { updateUser } from "@/database/user";
 
 const INTERVAL = 30;
 const TICK_DISTANCE = 10;
+const UPDATE_DATABASE_INTERVAL = 100;
 
 const UP_KEYS = ["ArrowUp", "w"];
 const DOWN_KEYS = ["ArrowDown", "s"];
@@ -79,7 +80,7 @@ export const useController = (userId?: string) => {
     }
     if (diff.x !== 0 || diff.y !== 0) {
       move(diff.x, diff.y);
-      if (counter > 100) {
+      if (counter > UPDATE_DATABASE_INTERVAL / INTERVAL) {
         setCounter(0);
         if (shipDetail && userId) {
           updateUser(shipDetail.id, userId, {
