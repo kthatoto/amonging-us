@@ -48,9 +48,6 @@ export const useController = () => {
             { x: position.x + diff.x, y: position.y + diff.y, width: PLAYER_SIZE, height: PLAYER_SIZE },
             obj
           );
-          if (result.x || result.y) {
-            console.log(obj);
-          }
           if (result.x) diff.x = 0;
           if (result.y) diff.y = 0;
         });
