@@ -16,7 +16,7 @@ import { UserInfo } from "firebase/auth";
 
 interface ShipsStore {
   ships: Ship[];
-  getShips: (userId: string) => Promise<void>;
+  getShips: (userId?: string) => Promise<void>;
   createShip: (params: ShipParams) => Promise<void>;
   updateShip: (id: string, params: ShipParams) => Promise<void>;
 
@@ -29,7 +29,7 @@ interface ShipsStore {
 }
 
 export default create<ShipsStore>((set) => {
-  const getShips = async (userId: string) => {
+  const getShips = async (userId?: string) => {
     const ships = await listShips(userId);
     set({ ships });
   };
