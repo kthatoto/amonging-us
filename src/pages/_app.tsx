@@ -1,9 +1,5 @@
 import { Outlet } from "react-router-dom";
-import {
-  AppShell,
-  createTheme,
-  MantineProvider,
-} from "@mantine/core";
+import { AppShell, createTheme, MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 // import useAuthStore from "@/stores/authStore";
