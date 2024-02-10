@@ -69,11 +69,14 @@ export const listShips = async (userId?: string) => {
     shipDocs.docs.map(async (shipDoc) => {
       const userDocsRef = collection(shipDoc.ref, USERS_COLLECTION_NAME);
       const userDocs = await getDocs(userDocsRef);
-      return userDocs.docs.map((userDoc) => ({
-        id: userDoc.id,
-        ...userDoc.data(),
-      } as UserDoc));
-    })
+      return userDocs.docs.map(
+        (userDoc) =>
+          ({
+            id: userDoc.id,
+            ...userDoc.data(),
+          }) as UserDoc,
+      );
+    }),
   );
 
   return shipDocs.docs.map((shipDoc, i) => {
@@ -113,10 +116,13 @@ export const getShipDetail = async (id: string) => {
           ...wallDoc.data(),
         }) as ObjectDoc,
     ),
-    users: userDocs.docs.map((userDoc) => ({
-      id: userDoc.id,
-      ...userDoc.data(),
-    } as UserDoc)),
+    users: userDocs.docs.map(
+      (userDoc) =>
+        ({
+          id: userDoc.id,
+          ...userDoc.data(),
+        }) as UserDoc,
+    ),
   } as ShipDetail;
 };
 

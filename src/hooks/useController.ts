@@ -82,12 +82,19 @@ export const useController = (userId?: string) => {
       if (counter > 100) {
         setCounter(0);
         if (shipDetail && userId) {
-          updateUser(shipDetail.id, userId, { x: position.x + diff.x, y: position.y + diff.y });
+          updateUser(shipDetail.id, userId, {
+            x: position.x + diff.x,
+            y: position.y + diff.y,
+          });
         }
       }
     }
     if (isMoving) setInteractableObjects(interactableIds);
-    if (isMoving && selectedObject && !interactableIds.includes(selectedObject.id)) {
+    if (
+      isMoving &&
+      selectedObject &&
+      !interactableIds.includes(selectedObject.id)
+    ) {
       clearObject();
     }
   }, INTERVAL);

@@ -102,7 +102,9 @@ const CommentForm = ({
         </Group>
         {!user && (
           <Stack gap={0}>
-            <Text ta="center" c="gray">Please sign-in to comment</Text>
+            <Text ta="center" c="gray">
+              Please sign-in to comment
+            </Text>
             <SignIn />
           </Stack>
         )}

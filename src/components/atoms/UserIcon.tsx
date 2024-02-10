@@ -18,7 +18,10 @@ const UserIcon = ({ user, size, style }: Props) => {
   if (user.photoURL) {
     return (
       <Image
-        src={user.photoURL} w={size} h={size} style={{ ...commonStyle, ...style }}
+        src={user.photoURL}
+        w={size}
+        h={size}
+        style={{ ...commonStyle, ...style }}
       />
     );
   }
@@ -37,7 +40,7 @@ const UserIcon = ({ user, size, style }: Props) => {
         {user.name?.at(0)}
       </Text>
     </Box>
-  )
+  );
 };
 
 export default UserIcon;

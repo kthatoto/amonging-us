@@ -47,14 +47,18 @@ const Console = () => {
           </Text>
           {shipDetail.users.map((u) => (
             <Group key={u.id} wrap="nowrap" align="flex-start">
-              <UserIcon user={u} size={30}/>
-              <Text flex={1} pt={4}>{u.name}</Text>
+              <UserIcon user={u} size={30} />
+              <Text flex={1} pt={4}>
+                {u.name}
+              </Text>
             </Group>
           ))}
         </Box>
         <Stack gap={10} px={10} pb={10}>
           <Divider />
-          <Button component={Link} to="/" variant="default" fullWidth>Top Page</Button>
+          <Button component={Link} to="/" variant="default" fullWidth>
+            Top Page
+          </Button>
         </Stack>
       </Stack>
       <ShipModalForm opened={opened} close={close} editingShip={shipDetail} />

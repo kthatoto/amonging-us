@@ -34,7 +34,13 @@ const Index = () => {
   return (
     <AppShell>
       <AppShell.Main bg="#efefef" p={40}>
-        {user ? <Button onClick={signOut} size="md">Sing Out</Button> : <SignIn />}
+        {user ? (
+          <Button onClick={signOut} size="md">
+            Sing Out
+          </Button>
+        ) : (
+          <SignIn />
+        )}
         <Space h={40} />
         <SimpleGrid cols={3}>
           {user && (
@@ -53,26 +59,38 @@ const Index = () => {
             </Card>
           )}
           {ships.map((ship) => (
-            <Link key={ship.id} to={`/ships/${ship.id}`} style={{ textDecoration: "none" }}>
+            <Link
+              key={ship.id}
+              to={`/ships/${ship.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <Card shadow="sm" h={200}>
                 <Stack gap={0}>
-                  <Group justify="space-between" wrap="nowrap" align="flex-start">
-                    <Text fz={20} fw="bold">{ship.title}</Text>
+                  <Group
+                    justify="space-between"
+                    wrap="nowrap"
+                    align="flex-start"
+                  >
+                    <Text fz={20} fw="bold">
+                      {ship.title}
+                    </Text>
                     {ship.isPrivate && (
                       <I icon={faLock} size="lg" style={{ marginTop: 2 }} />
                     )}
                   </Group>
-                  {ship.description && (
-                    <Text>{ship.description}</Text>
-                  )}
+                  {ship.description && <Text>{ship.description}</Text>}
                   <Divider my={8} />
                   <Text fz={16} fw="bold" mt={4}>
                     <I icon={faUsers} />
-                    <span style={{ marginLeft: 8, marginRight: 8 }}>Members</span>
+                    <span style={{ marginLeft: 8, marginRight: 8 }}>
+                      Members
+                    </span>
                     <span>({ship.users.length})</span>
                   </Text>
                   <Group gap={2}>
-                    {ship.users.map((user) => <UserIcon key={user.id} user={user} size={35} />)}
+                    {ship.users.map((user) => (
+                      <UserIcon key={user.id} user={user} size={35} />
+                    ))}
                   </Group>
                 </Stack>
               </Card>
