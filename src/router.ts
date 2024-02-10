@@ -3,11 +3,7 @@
 
 import { components, hooks, utils } from "@generouted/react-router/client";
 
-export type Path =
-  | `/`
-  | `/delete_data_instructions`
-  | `/privacy_policy`
-  | `/sysadmin`;
+export type Path = `/`;
 
 export type Params = {};
 
