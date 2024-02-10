@@ -16,7 +16,7 @@ export interface Comment {
   id: string;
   text: string;
   userId: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 export interface ObjectDoc {
@@ -90,6 +90,7 @@ export const getObjectDetail = async (id: string, objectId: string): Promise<Obj
     comments: commentDocs.docs.map((commentDoc) => ({
       id: commentDoc.id,
       ...commentDoc.data(),
+      createdAt: commentDoc.data().createdAt.toDate(),
     }) as Comment),
   } as ObjectDetail;
 };

@@ -3,6 +3,7 @@ import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import useShipsStore from "@/stores/shipsStore";
+import Comment from "@/components/molecules/Comment";
 
 const Console = () => {
   const { selectedObject } = useShipsStore();
@@ -35,8 +36,13 @@ const Console = () => {
                 <I icon={faComments} style={{ marginRight: 4 }} />
                 <span>Comments</span>
               </Text>
-              <Stack gap={5}>
-                {}
+              <Stack gap={16}>
+                {selectedObject.comments.map((comment) => (
+                  <Comment comment={comment}/>
+                ))}
+                {selectedObject.comments.length === 0 && (
+                  <Text c="gray">No Comments yet</Text>
+                )}
               </Stack>
             </Stack>
           </Stack>
