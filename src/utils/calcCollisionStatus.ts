@@ -26,37 +26,44 @@ export const calcCollisionStatus = (subject: Obstacle, opposite: Obstacle, diff:
   const oLeft = opposite.x;
   const oRight = opposite.x + opposite.width;
 
-  const beforeCollisionHorizontal = sLeft <= oRight && oLeft <= sRight;
-  const beforeCollisionVertical = sTop <= oBottom && oTop <= sBottom;
+  const beforeCollisionHorizontal = sLeft < oRight && oLeft < sRight;
+  const beforeCollisionVertical = sTop < oBottom && oTop < sBottom;
   const afterCollisionHorizontal = sdLeft <= oRight && oLeft <= sdRight;
   const afterCollisionVertical = sdTop <= oBottom && oTop <= sdBottom;
 
-  const collisionResult = {
+  const result = {
     x: false,
     y: false,
-    detail: {
+    restX: 0,
+    restY: 0,
+    side: {
       top: false,
       bottom: false,
       left: false,
       right: false,
     },
+    interactable: false,
   };
 
+  if (afterCollisionVertical) {
+    if (sTop < oTop) result.side.bottom = true; // subjectの方が上、下側が衝突
+    if (oTop < sTop) result.side.top = true; // subjectの方が下、上側が衝突
+  }
+  if (afterCollisionHorizontal) {
+    if (sLeft < oLeft) result.side.right = true; // subjectの方が左、右側が衝突
+    if (oLeft < sLeft) result.side.left = true; // subjectの方が右、左側が衝突
+  }
+
   if (!beforeCollisionVertical && afterCollisionVertical && afterCollisionHorizontal) {
-    collisionResult.y = true;
+    result.y = true;
+    if (result.side.top) result.restY = oBottom - sTop;
+    if (result.side.bottom) result.restY = oTop - sBottom;
   }
   if (!beforeCollisionHorizontal && afterCollisionHorizontal && afterCollisionVertical) {
-    collisionResult.x = true;
+    result.x = true;
+    if (result.side.left) result.restX = oRight - sLeft;
+    if (result.side.right) result.restX = oLeft - sRight;
   }
 
-  if (sTop <= oBottom && oTop <= sBottom) {
-    if (sTop < oTop) collisionResult.detail.bottom = true; // subjectの方が上、下側が衝突
-    if (oTop < sTop) collisionResult.detail.top = true; // subjectの方が下、上側が衝突
-  }
-  if (sLeft <= oRight && oLeft <= sRight) {
-    if (sLeft < oLeft) collisionResult.detail.right = true; // subjectの方が左、右側が衝突
-    if (oLeft < sLeft) collisionResult.detail.left = true; // subjectの方が右、左側が衝突
-  }
-
-  return collisionResult;
+  return result;
 };

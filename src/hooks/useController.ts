@@ -53,8 +53,8 @@ export const useController = () => {
             obj,
             diff
           );
-          if (result.x) diff.x = 0;
-          if (result.y) diff.y = 0;
+          if (result.x) diff.x = result.restX;
+          if (result.y) diff.y = result.restY;
         });
       }
       if (diff.x !== 0 || diff.y !== 0) move(diff.x, diff.y);
