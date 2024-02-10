@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { AppShell, createTheme, MantineProvider } from "@mantine/core";
+import { createTheme, MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 // import useAuthStore from "@/stores/authStore";
@@ -16,11 +16,7 @@ const App = () => {
     <MantineProvider theme={theme}>
       <Notifications position="top-right" />
       <ModalsProvider>
-        <AppShell>
-          <AppShell.Main bg="#efefef">
-            <Outlet />
-          </AppShell.Main>
-        </AppShell>
+        <Outlet />
       </ModalsProvider>
     </MantineProvider>
   );
