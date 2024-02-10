@@ -1,14 +1,21 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { AppShell, Box, Button, Stack } from "@mantine/core";
-// import { useParams } from "@/router";
+import { useParams } from "@/router";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
-import useObjectsStore from "@/stores/objectsStore";
+import useShipsStore from "@/stores/shipsStore";
 import { Link } from "react-router-dom";
 
 const Main = () => {
-  const { objects } = useObjectsStore();
+  const { id } = useParams("/ships/:id");
+  const { rideShip, shipDetail } = useShipsStore();
   const mainRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    rideShip(id);
+  }, [rideShip, id]);
+
+  if (!shipDetail) return null;
 
   return (
     <Box
@@ -20,7 +27,7 @@ const Main = () => {
         position: "relative",
       }}
     >
-      {objects.map((obj, i) => (
+      {shipDetail.objects.map((obj, i) => (
         <Objekt key={i} objekt={obj} mainRef={mainRef} />
       ))}
       <Player />
@@ -38,8 +45,6 @@ const Console = () => {
 };
 
 const Ship = () => {
-  // const { id } = useParams("/ships/:id");
-
   return (
     <AppShell
       aside={{ width: 300, breakpoint: "xs" }}

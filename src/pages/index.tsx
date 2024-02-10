@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AppShell, Button, Card, SimpleGrid, Space, Text } from "@mantine/core";
 import SignIn from "@/components/SignIn";
@@ -7,7 +8,10 @@ import useShipsStore from "@/stores/shipsStore";
 const Index = () => {
   const { user, signOut } = useAuthStore();
   const { ships, getShips } = useShipsStore();
-  getShips();
+
+  useEffect(() => {
+    getShips();
+  }, [getShips]);
 
   return (
     <AppShell>
