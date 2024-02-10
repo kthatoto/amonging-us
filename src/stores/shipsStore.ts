@@ -24,6 +24,7 @@ interface ShipsStore {
 
   shipDetail?: ShipDetail;
   rideShip: (id: string, user: UserInfo | null) => Promise<void>;
+  fetchShip: (id: string) => Promise<void>;
 
   selectedObject?: ObjectDetail;
   selectObject: (id: string, objectId: string) => Promise<void>;
@@ -46,6 +47,10 @@ export default create<ShipsStore>((set) => {
     ]);
     set({ shipDetail, users });
   };
+  const fetchShip = async (id: string) => {
+    const shipDetail = await getShipDetail(id);
+    set({ shipDetail });
+  };
 
   const selectObject = async (id: string, objectId: string) => {
     const objectDetail = await getObjectDetail(id, objectId);
@@ -60,6 +65,7 @@ export default create<ShipsStore>((set) => {
 
     shipDetail: undefined,
     rideShip,
+    fetchShip,
 
     selectedObject: undefined,
     selectObject,

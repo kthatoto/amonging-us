@@ -43,21 +43,28 @@ interface Props {
 
 const ShipModalForm = ({ opened, close, editingShip }: Props) => {
   const { user } = useAuthStore();
-  const { createShip, updateShip, getShips } = useShipsStore();
+  const {
+    createShip,
+    updateShip,
+    getShips,
+    fetchShip,
+  } = useShipsStore();
 
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
+    watch,
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: editingShip?.title || "",
       description: editingShip?.description || "",
-      isPrivate: editingShip?.isPrivate || false,
+      isPrivate: editingShip ? editingShip.isPrivate : false,
     },
   });
+  const isPrivate = watch("isPrivate");
 
   const isEditing = useMemo(() => !!editingShip, [editingShip]);
 
@@ -70,7 +77,7 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
       });
       showSuccessNotification("Updated ship");
       close();
-      // TODO: getShipDetail
+      await fetchShip(editingShip.id);
     } else {
       await createShip({ ...params, userId: user.uid });
       showSuccessNotification("Created new ship!");
@@ -128,7 +135,7 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
           control={control}
           name="isPrivate"
           render={({ field }) => (
-            <Flex justify="flex-end" my={10}>
+            <Flex justify="flex-end" mt={10} mb={-10}>
               <Switch
                 size="md"
                 styles={{
@@ -147,10 +154,23 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
             </Flex>
           )}
         />
+        <Text
+          fz="sm"
+          style={{ textAlign: "right" }}
+          mb={15}
+          fw={isPrivate ? "bold" : ""}
+          c={isPrivate ? "red" : ""}
+        >
+          {isPrivate ? (
+            "Available only to people who know the link"
+          ) : (
+            "Available to everyone"
+          )}
+        </Text>
         <Button type="submit" fullWidth size="lg">
           <I icon={faRocket} />
           <Text fw="bold" ml={8}>
-            Launch New Ship
+            {isEditing ? "Update Ship" : "Launch New Ship"}
           </Text>
         </Button>
       </form>

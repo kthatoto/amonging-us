@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Box, Button, Divider, Stack, Text } from "@mantine/core";
+import { Box, Button, Divider, Group, Stack, Text } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faLock } from "@fortawesome/free-solid-svg-icons";
 import useShipsStore from "@/stores/shipsStore";
 // import { useParams } from "@/router";
 // import { showSuccessNotification } from "@/utils/notifications";
@@ -18,7 +18,7 @@ const Console = () => {
     // users,
   } = useShipsStore();
 
-  const [isEditingShip, setIsEditingShip] = useState<boolean>(false);
+  const [opened, { open, close }] = useDisclosure();
 
   if (selectedObject)
     return <ObjectConsole selectedObject={selectedObject} />;
@@ -28,10 +28,13 @@ const Console = () => {
     <>
       <Stack gap={0}>
         <Box p={10}>
-          <Text fz={24} fw="bold">{shipDetail.title}</Text>
+          <Group justify="space-between">
+            <Text fz={24} fw="bold">{shipDetail.title}</Text>
+            {shipDetail.isPrivate && <I icon={faLock} size="lg"/>}
+          </Group>
           <Text fz={16}>{shipDetail.description}</Text>
           {shipDetail.userId === user?.uid && (
-            <Button variant="default" fullWidth mt={5}>
+            <Button variant="default" fullWidth mt={5} onClick={open}>
               <I icon={faEdit} />
               <span>Edit</span>
             </Button>
@@ -40,8 +43,8 @@ const Console = () => {
         </Box>
       </Stack>
       <ShipModalForm
-        opened={isEditingShip}
-        close={() => setIsEditingShip(false)}
+        opened={opened}
+        close={close}
         editingShip={shipDetail}
       />
     </>
