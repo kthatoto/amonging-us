@@ -28,9 +28,9 @@ const Console = () => {
     <>
       <Stack gap={0}>
         <Box p={10}>
-          <Group justify="space-between">
+          <Group justify="space-between" wrap="nowrap" align="flex-start">
             <Text fz={24} fw="bold">{shipDetail.title}</Text>
-            {shipDetail.isPrivate && <I icon={faLock} size="lg"/>}
+            {shipDetail.isPrivate && <I icon={faLock} size="lg" style={{ marginTop: 6 }} />}
           </Group>
           <Text fz={16}>{shipDetail.description}</Text>
           {shipDetail.userId === user?.uid && (

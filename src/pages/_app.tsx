@@ -14,7 +14,7 @@ const theme = createTheme({
 const App = () => {
   return (
     <MantineProvider theme={theme}>
-      <Notifications position="top-right" />
+      <Notifications position="top-center" />
       <ModalsProvider>
         <Outlet />
       </ModalsProvider>

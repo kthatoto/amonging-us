@@ -83,8 +83,8 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
       showSuccessNotification("Created new ship!");
       close();
       await getShips();
+      reset();
     }
-    reset();
   });
 
   if (!user) return null;
@@ -137,6 +137,7 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
           render={({ field }) => (
             <Flex justify="flex-end" mt={10} mb={-10}>
               <Switch
+                defaultChecked={editingShip?.isPrivate}
                 size="md"
                 styles={{
                   root: { cursor: "pointer" },
