@@ -82,7 +82,7 @@ const ShipModalForm = ({ opened, close, editingShip }: Props) => {
       await createShip({ ...params, userId: user.uid });
       showSuccessNotification("Created new ship!");
       close();
-      await getShips();
+      await getShips(user.uid);
       reset();
     }
   });
