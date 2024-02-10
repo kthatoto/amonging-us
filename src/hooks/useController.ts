@@ -15,7 +15,7 @@ const LEFT_KEYS = ["ArrowLeft", "a"];
 
 export const useController = () => {
   const { move, position, setInteractableObjects } = usePlayerStore();
-  const { shipDetail } = useShipsStore();
+  const { shipDetail, selectedObject, clearObject } = useShipsStore();
 
   const [pressingKeys, setPressingKeys] = useState<string[]>([]);
 
@@ -71,6 +71,9 @@ export const useController = () => {
     }
     if (diff.x !== 0 || diff.y !== 0) move(diff.x, diff.y);
     if (isMoving) setInteractableObjects(interactableIds);
+    if (isMoving && selectedObject && !interactableIds.includes(selectedObject.id)) {
+      clearObject();
+    }
   }, INTERVAL);
 
   useEffect(() => {

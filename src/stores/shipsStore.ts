@@ -26,6 +26,7 @@ interface ShipsStore {
 
   selectedObject?: ObjectDetail;
   selectObject: (id: string, objectId: string) => Promise<void>;
+  clearObject: () => void;
 }
 
 export default create<ShipsStore>((set) => {
@@ -51,6 +52,9 @@ export default create<ShipsStore>((set) => {
     const objectDetail = await getObjectDetail(id, objectId);
     set({ selectedObject: objectDetail });
   };
+  const clearObject = async () => {
+    set({ selectedObject: undefined });
+  };
 
   return {
     ships: [],
@@ -64,5 +68,6 @@ export default create<ShipsStore>((set) => {
 
     selectedObject: undefined,
     selectObject,
+    clearObject,
   };
 });
