@@ -16,7 +16,7 @@ export interface EditParams {
 interface Props {
   shipId: string;
   objectId: string;
-  comment?: EditParams;
+  editingComment?: EditParams;
   cancelEdit?: () => void;
 }
 interface FormValues {
@@ -27,9 +27,10 @@ const formSchema = z.object({
   text: z.string().min(1),
 });
 
-const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
+const CommentForm = ({ shipId, objectId, editingComment, cancelEdit }: Props) => {
   const { user } = useAuthStore();
   const { selectObject } = useShipsStore();
+
   const {
     control,
     handleSubmit,
@@ -37,15 +38,15 @@ const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { text: comment?.text || "" },
+    defaultValues: { text: editingComment?.text || "" },
   });
 
-  const isEditing = useMemo(() => !!comment, [comment]);
+  const isEditing = useMemo(() => !!editingComment, [editingComment]);
 
   const onSubmit = handleSubmit(async (params) => {
     if (!user) return;
-    if (comment) {
-      await updateComment(shipId, objectId, comment.id, {
+    if (editingComment) {
+      await updateComment(shipId, objectId, editingComment.id, {
         ...params,
         userId: user.uid,
       });
