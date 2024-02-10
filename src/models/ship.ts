@@ -7,6 +7,7 @@ import {
   orderBy,
   where,
   addDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
@@ -116,8 +117,8 @@ export const join = async (id: string, userId: string) => {
   const userData = await getUser(userId);
 
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
-  const userDocRef = collection(shipDocRef, USERS_COLLECTION_NAME);
-  await addDoc(userDocRef, userData);
+  const userDocRef = doc(shipDocRef, USERS_COLLECTION_NAME, userId);
+  await setDoc(userDocRef, userData);
 };
 
 export const getShipUsers = async (id: string) => {
