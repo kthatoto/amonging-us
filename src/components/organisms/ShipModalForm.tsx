@@ -11,7 +11,7 @@ interface Props {
   close: () => void;
 }
 
-const NewShipModal = ({ opened, close }: Props) => {
+const ShipModalForm = ({ opened, close }: Props) => {
   const { user } = useAuthStore();
   const { createShip } = useShipsStore();
 
@@ -22,4 +22,4 @@ const NewShipModal = ({ opened, close }: Props) => {
   );
 };
 
-export default NewShipModal;
+export default ShipModalForm;
