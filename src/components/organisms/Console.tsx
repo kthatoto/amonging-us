@@ -39,12 +39,13 @@ const Console = () => {
           <Divider />
 
           <Stack gap={10} py={10} style={{ overflow: "scroll" }}>
-            <Stack gap={16}>
+            <Stack gap={8}>
               {selectedObject.comments.map((comment) => (
                 <Comment
                   key={comment.id}
                   comment={comment}
                   setEditingComment={setEditingComment}
+                  isEditing={editingComment?.id === comment.id}
                 />
               ))}
               {selectedObject.comments.length === 0 && (

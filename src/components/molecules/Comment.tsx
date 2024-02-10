@@ -8,16 +8,18 @@ import useAuthStore from "@/stores/authStore";
 // @ts-expect-error: dayjs
 import dayjs from "dayjs";
 import { EditParams as CommentEditParams } from "@/components/organisms/CommentForm";
+import { COLORS } from "@/styles/colors";
 
 interface Props {
   comment: IComment;
   setEditingComment: (params: CommentEditParams) => void;
+  isEditing: boolean;
 }
 
 const dummySrc = "https://lh3.googleusercontent.com/a/ACg8ocISAgqL0AWYtiS1K0UjC8atjUEDYiWMIZ_-J4nZ4_nzDQ=s288-c-no";
 const dummyName = "はとぴじょん";
 
-const Comment = ({ comment, setEditingComment }: Props) => {
+const Comment = ({ comment, setEditingComment, isEditing }: Props) => {
   const { user } = useAuthStore();
   const { hovered, ref } = useHover();
 
@@ -29,7 +31,18 @@ const Comment = ({ comment, setEditingComment }: Props) => {
   }, [setEditingComment, comment]);
 
   return (
-    <Group gap={8} wrap="nowrap" align="top" w="100%" ref={ref}>
+    <Group
+      gap={8}
+      p={4}
+      wrap="nowrap"
+      align="top"
+      w="100%"
+      ref={ref}
+      style={{
+        borderRadius: 6,
+        ...(isEditing ? { backgroundColor: COLORS.skyblue } : {})
+      }}
+    >
       <Image
         w={35}
         h={35}
@@ -44,8 +57,8 @@ const Comment = ({ comment, setEditingComment }: Props) => {
             <Text fz="xs">{dateString}</Text>
           </Box>
           {(user?.uid === comment.userId) && hovered && (
-            <UnstyledButton onClick={onEdit}>
-              <I icon={faEdit} size="sm" color="gray" />
+            <UnstyledButton onClick={onEdit} py={4} px={8}>
+              <I icon={faEdit} color="#666" />
             </UnstyledButton>
           )}
         </Group>

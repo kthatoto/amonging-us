@@ -10,4 +10,6 @@ export const COLORS = {
   greenPale: "#e6f9f3",
 
   saturdayBlue: "#65a7d6",
+
+  skyblue: "#87ceeb",
 };
