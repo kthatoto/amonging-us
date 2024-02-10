@@ -28,13 +28,13 @@ const Index = () => {
   const [newShipModalOpened, newShipModalHandlers] = useDisclosure();
 
   useEffect(() => {
-    if (user) getShips(user.uid);
+    getShips(user?.uid);
   }, [getShips, user]);
 
   return (
     <AppShell>
       <AppShell.Main bg="#efefef" p={40}>
-        {user ? <Button onClick={signOut}>Sing Out</Button> : <SignIn />}
+        {user ? <Button onClick={signOut} size="md">Sing Out</Button> : <SignIn />}
         <Space h={40} />
         <SimpleGrid cols={3}>
           {user && (
