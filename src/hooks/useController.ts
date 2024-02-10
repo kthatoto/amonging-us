@@ -36,18 +36,21 @@ export const useController = () => {
       const isLeft = LEFT_KEYS.some((k) => pressingKeys.includes(k));
 
       const diff = { x: 0, y: 0 };
-      if (isUp) diff.y -= TICK_DISTANCE;
-      if (isDown) diff.y += TICK_DISTANCE;
-      if (isRigth) diff.x += TICK_DISTANCE;
-      if (isLeft) diff.x -= TICK_DISTANCE;
+      if (isUp) diff.y = -TICK_DISTANCE;
+      if (isDown) diff.y = TICK_DISTANCE;
+      if (isRigth) diff.x = TICK_DISTANCE;
+      if (isLeft) diff.x = -TICK_DISTANCE;
 
       if (shipDetail?.objects && (diff.x !== 0 || diff.y !== 0)) {
         shipDetail.objects.forEach((obj) => {
           if (diff.x === 0 && diff.y === 0) return;
           const result = calcCollisionStatus(
-            { x: position.x, y: position.y, width: PLAYER_SIZE, height: PLAYER_SIZE },
+            { x: position.x + diff.x, y: position.y + diff.y, width: PLAYER_SIZE, height: PLAYER_SIZE },
             obj
           );
+          if (result.x || result.y) {
+            console.log(obj);
+          }
           if (result.x) diff.x = 0;
           if (result.y) diff.y = 0;
         });
