@@ -1,22 +1,24 @@
-import { Box, Button, Divider, Group, Flex, Stack, Text } from "@mantine/core";
+import { Box, Divider, Group, Flex, Stack, Text } from "@mantine/core";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 import useShipsStore from "@/stores/shipsStore";
 import Comment from "@/components/molecules/Comment";
+import CommentForm from "@/components/organisms/CommentForm";
+import { useParams } from "@/router";
 
 const Console = () => {
+  const { id } = useParams("/ships/:id");
   const { selectedObject } = useShipsStore();
-  return (
-    <Flex
-      justify="space-between"
-      direction="column"
-      h="100%"
-      p={20}
-      gap={10}
-    >
-      <Box flex={1} style={{ overflow: "hidden" }}>
-        {selectedObject && (
+  if (selectedObject) {
+    return (
+      <Flex
+        justify="space-between"
+        direction="column"
+        h="100%"
+        p={20}
+        gap={10}
+      >
+        <Box flex={1} style={{ overflow: "hidden" }}>
           <Stack gap={20}>
             <Stack gap={10}>
               <Group align="top" wrap="nowrap">
@@ -46,14 +48,15 @@ const Console = () => {
               </Stack>
             </Stack>
           </Stack>
-        )}
-      </Box>
+        </Box>
 
-      <Box h={40} w="100%">
-        <Button component={Link} to="/" w="100%">Top Page</Button>
-      </Box>
-    </Flex>
-  );
+        <CommentForm
+          shipId={id}
+          objectId={selectedObject.id}
+        />
+      </Flex>
+    );
+  }
 };
 
 export default Console;

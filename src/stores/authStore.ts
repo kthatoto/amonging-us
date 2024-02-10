@@ -5,7 +5,7 @@ import {
   UserInfo,
 } from "firebase/auth";
 import { create } from "zustand";
-import { auth, googleProvider, facebookProvider } from "@/firebase";
+import { auth, googleProvider } from "@/firebase";
 import {
   showErrorNotification,
   showSuccessNotification,
@@ -16,7 +16,6 @@ interface AuthStore {
   loading: boolean;
   error: unknown | null;
   signInWithGoogle: () => Promise<void>;
-  signInWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -33,21 +32,10 @@ export default create<AuthStore>((set) => {
       set({ loading: true });
       try {
         const userCredential = await signInWithPopup(auth, googleProvider);
-        showSuccessNotification("ログインしました");
+        showSuccessNotification("Success sign-in");
         set({ user: userCredential.user, loading: false, error: null });
       } catch (error) {
-        showErrorNotification("ログインに失敗しました");
-        set({ loading: false, error });
-      }
-    },
-    signInWithFacebook: async () => {
-      set({ loading: true });
-      try {
-        const userCredential = await signInWithPopup(auth, facebookProvider);
-        showSuccessNotification("ログインしました");
-        set({ user: userCredential.user, loading: false, error: null });
-      } catch (error) {
-        showErrorNotification("ログインに失敗しました");
+        showErrorNotification("Fail sign-in");
         set({ loading: false, error });
       }
     },
@@ -55,10 +43,10 @@ export default create<AuthStore>((set) => {
       set({ loading: true });
       try {
         await signOut(auth);
-        showSuccessNotification("ログアウトしました");
+        showSuccessNotification("Success sign-out");
         set({ user: null, loading: false, error: null });
       } catch (error) {
-        showErrorNotification("ログアウトに失敗しました");
+        showErrorNotification("Fail sign-out");
         set({ loading: false, error });
       }
     },

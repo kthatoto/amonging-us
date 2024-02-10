@@ -7,10 +7,11 @@ import {
   where
 } from "firebase/firestore";
 import { db } from "@/firebase";
-
-export const SHIPS_COLLECTION_NAME = "ships";
-export const OBJECTS_COLLECTION_NAME = "objects";
-export const COMMENTS_COLLECTION_NAME = "comments";
+import {
+  SHIPS_COLLECTION_NAME,
+  OBJECTS_COLLECTION_NAME,
+  COMMENTS_COLLECTION_NAME,
+} from "@/constants";
 
 export interface Comment {
   id: string;
