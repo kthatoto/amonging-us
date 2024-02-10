@@ -14,5 +14,4 @@ export const registerUser = (shipId: string, user: UserInfo) => {
   });
 };
 
-export const updateUser = (userId) => {
-};
+export const updateUser = (userId) => {};

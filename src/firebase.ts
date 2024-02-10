@@ -31,9 +31,4 @@ if (isDevelopment) {
   connectFirestoreEmulator(db, "localhost", 8080);
 }
 
-export {
-  auth,
-  db,
-  rtdb,
-  googleProvider,
-};
+export { auth, db, rtdb, googleProvider };
