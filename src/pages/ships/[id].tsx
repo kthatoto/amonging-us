@@ -1,9 +1,10 @@
 import { useRef } from "react";
-import { AppShell, Box } from "@mantine/core";
+import { AppShell, Box, Button, Stack } from "@mantine/core";
 // import { useParams } from "@/router";
 import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
 import useObjectsStore from "@/stores/objectsStore";
+import { Link } from "react-router-dom";
 
 const Main = () => {
   const { objects } = useObjectsStore();
@@ -29,7 +30,10 @@ const Main = () => {
 
 const Console = () => {
   return (
-    <h1>Console</h1>
+    <Stack gap={20} p={10}>
+      <h1>Console</h1>
+      <Button component={Link} to="/">Top Page</Button>
+    </Stack>
   );
 };
 
