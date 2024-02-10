@@ -1,10 +1,20 @@
 import { AppShell, Box } from "@mantine/core";
 // import { useParams } from "@/router";
 import { useController } from "@/hooks/useController";
+import Objekt from "@/components/atoms/Objekt";
+import useObjectsStore from "@/stores/objectsStore";
 
 const Main = () => {
+  const { objects } = useObjectsStore();
+
   return (
-    <Box w="100%" h="100vh">
+    <Box
+      w="100%" h="100vh"
+      style={{ overflow: "hidden" }}
+    >
+      {objects.map((obj) => {
+        <Objekt objekt={obj} />
+      })}
     </Box>
   );
 };
