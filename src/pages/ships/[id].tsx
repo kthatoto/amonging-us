@@ -7,6 +7,7 @@ import Objekt from "@/components/atoms/Objekt";
 import Player from "@/components/atoms/Player";
 import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
+import { useMobs } from "@/hooks/useMobs";
 
 const Main = () => {
   const { user } = useAuthStore();
@@ -17,6 +18,8 @@ const Main = () => {
   useEffect(() => {
     rideShip(id, user);
   }, [rideShip, id, user]);
+
+  useMobs(id);
 
   if (!shipDetail) return null;
 
