@@ -12,7 +12,7 @@ import {
   COMMENTS_COLLECTION_NAME,
 } from "@/constants";
 
-interface CommentParams {
+export interface CommentParams {
   text: string;
   userId: string;
 }

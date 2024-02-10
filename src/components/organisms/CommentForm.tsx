@@ -1,4 +1,5 @@
-import { Button, Stack, Textarea } from "@mantine/core";
+import { useMemo } from "react";
+import { Button, Group, Stack, Textarea } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -6,13 +7,16 @@ import { showSuccessNotification } from "@/utils/notifications";
 import useAuthStore from "@/stores/authStore";
 import { createComment, updateComment } from "@/models/comment";
 
+export interface EditParams {
+  id: string;
+  text: string;
+}
+
 interface Props {
   shipId: string;
   objectId: string;
-  comment?: {
-    id: string;
-    text: string;
-  }
+  comment?: EditParams;
+  cancelEdit?: () => void;
 }
 interface FormValues {
   text: string;
@@ -22,7 +26,7 @@ const formSchema = z.object({
   text: z.string().min(1),
 });
 
-const CommentForm = ({ shipId, objectId, comment }: Props) => {
+const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
   const { user } = useAuthStore();
   const {
     control,
@@ -32,6 +36,8 @@ const CommentForm = ({ shipId, objectId, comment }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: { text: comment?.text || "" },
   });
+
+  const isEditing = useMemo(() => !!comment, [comment]);
 
   const onSubmit = handleSubmit(async (params) => {
     if (!user) return;
@@ -57,10 +63,21 @@ const CommentForm = ({ shipId, objectId, comment }: Props) => {
           control={control}
           name="text"
           render={({ field }) => (
-            <Textarea label="New Comment" error={errors.text?.message} {...field} />
+            <Textarea
+              label={isEditing ? "Edit Comment" : "New Comment"}
+              error={errors.text?.message}
+              {...field}
+            />
           )}
         />
-        <Button type="submit" fullWidth>Submit</Button>
+        <Group>
+          {isEditing && (
+            <Button onClick={() => cancelEdit?.()} flex={1} variant="default">Cancel</Button>
+          )}
+          <Button type="submit" flex={1}>
+            {isEditing ? "Update" : "Submit"}
+          </Button>
+        </Group>
       </Stack>
     </form>
   );

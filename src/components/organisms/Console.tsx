@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { Box, Divider, Group, Flex, Stack, Text } from "@mantine/core";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import useShipsStore from "@/stores/shipsStore";
 import Comment from "@/components/molecules/Comment";
-import CommentForm from "@/components/organisms/CommentForm";
+import CommentForm, { EditParams as CommentEditParams } from "@/components/organisms/CommentForm";
 import { useParams } from "@/router";
 
 const Console = () => {
   const { id } = useParams("/ships/:id");
   const { selectedObject } = useShipsStore();
+  const [editingComment, setEditingComment] = useState<CommentEditParams | undefined>();
+
   if (selectedObject) {
     return (
       <Flex
@@ -40,7 +43,11 @@ const Console = () => {
               </Text>
               <Stack gap={16}>
                 {selectedObject.comments.map((comment) => (
-                  <Comment key={comment.id} comment={comment}/>
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    setEditingComment={setEditingComment}
+                  />
                 ))}
                 {selectedObject.comments.length === 0 && (
                   <Text c="gray">No Comments yet</Text>
@@ -50,10 +57,21 @@ const Console = () => {
           </Stack>
         </Box>
 
-        <CommentForm
-          shipId={id}
-          objectId={selectedObject.id}
-        />
+        {editingComment ? (
+          <CommentForm
+            key={"edit-form-" + editingComment.id}
+            shipId={id}
+            objectId={selectedObject.id}
+            comment={editingComment}
+            cancelEdit={() => setEditingComment(undefined)}
+          />
+        ) : (
+          <CommentForm
+            key="new-form"
+            shipId={id}
+            objectId={selectedObject.id}
+          />
+        )}
       </Flex>
     );
   }
