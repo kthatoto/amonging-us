@@ -9,6 +9,7 @@ import {
   where,
   setDoc,
   updateDoc,
+  or,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import {
@@ -59,7 +60,10 @@ export interface ShipDetail extends Ship {
 export const listShips = async (userId: string) => {
   const shipDocsRef = query(
     collection(db, SHIPS_COLLECTION_NAME),
-    where("isPrivate", "!=", true),
+    or(
+      where("isPrivate", "!=", true),
+      where("userId", "==", userId)
+    ),
   );
   const shipDocs = await getDocs(shipDocsRef);
 

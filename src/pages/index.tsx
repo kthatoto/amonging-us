@@ -24,8 +24,8 @@ const Index = () => {
   const [newShipModalOpened, newShipModalHandlers] = useDisclosure();
 
   useEffect(() => {
-    getShips();
-  }, [getShips]);
+    if (user) getShips(user.uid);
+  }, [getShips, user]);
 
   return (
     <AppShell>
