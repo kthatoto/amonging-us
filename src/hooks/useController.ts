@@ -43,7 +43,6 @@ export const useController = () => {
 
       if (shipDetail?.objects && (diff.x !== 0 || diff.y !== 0)) {
         shipDetail.objects.forEach((obj) => {
-          if (diff.x === 0 && diff.y === 0) return;
           const result = calcCollisionStatus(
             {
               x: position.x - PLAYER_SIZE / 2,

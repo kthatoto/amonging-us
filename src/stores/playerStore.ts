@@ -7,6 +7,9 @@ interface PlayerStore {
   };
   move: (xDiff: number, yDiff: number) => void;
   setPosition: (x: number, y: number) => void;
+
+  interactableObjectIds: string[];
+  setInteractableObjects: (ids: string[]) => void;
 }
 
 export default create<PlayerStore>((set) => {
@@ -18,10 +21,15 @@ export default create<PlayerStore>((set) => {
           x: state.position.x + xDiff,
           y: state.position.y + yDiff,
         }
-      }))
+      }));
     },
     setPosition: (x, y) => {
-      set(() => ({ position: { x, y } }))
+      set(() => ({ position: { x, y } }));
+    },
+
+    interactableObjectIds: [],
+    setInteractableObjects: (ids: string[]) => {
+      set(() => ({ interactableObjectIds: ids }));
     },
   };
 });
