@@ -3,6 +3,7 @@ import { AppShell, Box } from "@mantine/core";
 // import { useParams } from "@/router";
 import { useController } from "@/hooks/useController";
 import Objekt from "@/components/atoms/Objekt";
+import Player from "@/components/atoms/Player";
 import useObjectsStore from "@/stores/objectsStore";
 
 const Main = () => {
@@ -22,6 +23,7 @@ const Main = () => {
       {objects.map((obj, i) => (
         <Objekt key={i} objekt={obj} mainRef={mainRef} />
       ))}
+      <Player />
     </Box>
   );
 };
