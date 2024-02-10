@@ -8,7 +8,7 @@ import { updateUser } from "@/database/user";
 
 const INTERVAL = 30;
 const TICK_DISTANCE = 10;
-const UPDATE_DATABASE_INTERVAL = 100;
+const UPDATE_DATABASE_INTERVAL = 50;
 
 const UP_KEYS = ["ArrowUp", "w"];
 const DOWN_KEYS = ["ArrowDown", "s"];
