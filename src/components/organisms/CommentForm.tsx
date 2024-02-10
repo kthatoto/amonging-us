@@ -33,6 +33,7 @@ const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -57,6 +58,7 @@ const CommentForm = ({ shipId, objectId, comment, cancelEdit }: Props) => {
       });
       showSuccessNotification("Created new comment!");
     }
+    reset();
     await selectObject(shipId, objectId);
   });
 
