@@ -49,9 +49,9 @@ const ObjectConsole = ({ selectedObject }: Props) => {
               style={{ minWidth: 80 }}
               src={
                 {
-                  "電気室": Electorical,
-                  "上部エンジン": UpperEngine,
-                  "ナビゲーション": Navigation,
+                  電気室: Electorical,
+                  上部エンジン: UpperEngine,
+                  ナビゲーション: Navigation,
                 }[selectedObject.title]
               }
             />

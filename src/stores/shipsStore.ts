@@ -36,9 +36,7 @@ export default create<ShipsStore>((set) => {
 
   const rideShip = async (id: string, user: UserInfo | null) => {
     if (user) await join(id, user);
-    const [shipDetail] = await Promise.all([
-      getShipDetail(id),
-    ]);
+    const [shipDetail] = await Promise.all([getShipDetail(id)]);
     set({ shipDetail });
   };
   const fetchShip = async (id: string) => {

@@ -42,7 +42,7 @@ const Comment = ({
   }, [comment, deleteComment]);
 
   const commenter = useMemo(() => {
-    return shipDetail!.users.find((u) => u.id === comment.userId)
+    return shipDetail!.users.find((u) => u.id === comment.userId);
   }, [shipDetail, comment]);
 
   return (
