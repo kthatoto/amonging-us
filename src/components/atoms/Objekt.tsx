@@ -4,7 +4,6 @@ import { Objekt as ObjectType } from "@/models/objekt";
 import usePlayerStore from "@/stores/playerStore";
 import useShipsStore from "@/stores/shipsStore";
 import { useParams } from "@/router";
-import { COLORS } from "@/styles/colors";
 
 interface Props {
   objekt: ObjectType;
@@ -12,7 +11,7 @@ interface Props {
 }
 
 const interactableStyles = {
-  backgroundColor: COLORS.skyblue,
+  backgroundColor: "rgba(135, 206, 235, 0.6)",
   cursor: "pointer",
 } as const;
 
@@ -40,6 +39,7 @@ const Objekt = ({ objekt, mainRef }: Props) => {
       style={{
         position: "absolute",
         border: "4px dotted blue",
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
         top,
         left,
         ...(interactable ? interactableStyles : {}),
