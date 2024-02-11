@@ -175,7 +175,7 @@ export const createShip = async (params: ShipParams) => {
   const shipDocRef = await addDoc(shipDocsRef, params);
   const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
   await addDoc(wallDocsRef, {
-    x: -1500,
+    x: -1800,
     y: -1500,
     width: 1000,
     height: 3000,
@@ -189,7 +189,7 @@ export const createShip = async (params: ShipParams) => {
     isWall: true,
   });
   await addDoc(wallDocsRef, {
-    x: 500,
+    x: 800,
     y: -1500,
     width: 1000,
     height: 3000,

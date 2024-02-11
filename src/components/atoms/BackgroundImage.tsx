@@ -11,13 +11,13 @@ const BackgroundImage = ({ mainRef }: Props) => {
   const { position } = usePlayerStore();
 
   const top = -500 - position.y + (mainRef.current?.clientHeight || 0) / 2;
-  const left = -500 - position.x + (mainRef.current?.clientWidth || 0) / 2;
+  const left = -800 - position.x + (mainRef.current?.clientWidth || 0) / 2;
 
   return (
     <Image
       src={skeld}
       pos="absolute"
-      w={1000}
+      w={1600}
       h={1000}
       top={top}
       left={left}
