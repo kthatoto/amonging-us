@@ -2,6 +2,7 @@ import { RefObject } from "react";
 import { Box } from "@mantine/core";
 import { Objekt as ObjectType } from "@/models/objekt";
 import usePlayerStore from "@/stores/playerStore";
+import { COLORS } from "@/styles/colors";
 
 interface Props {
   wall: ObjectType;
@@ -18,7 +19,7 @@ const Wall = ({ wall, mainRef }: Props) => {
     <Box
       w={wall.width}
       h={wall.height}
-      style={{ position: "absolute", backgroundColor: "#0d2136", top, left }}
+      style={{ position: "absolute", backgroundColor: COLORS.space, top, left }}
     />
   );
 };

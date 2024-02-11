@@ -12,4 +12,6 @@ export const COLORS = {
   saturdayBlue: "#65a7d6",
 
   skyblue: "#87ceeb",
+
+  space: "#0d2136",
 };
