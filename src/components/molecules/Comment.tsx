@@ -5,10 +5,12 @@ import { Box, Group, Image, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
 import { Comment as IComment } from "@/models/ship";
 import useAuthStore from "@/stores/authStore";
+import useShipsStore from "@/stores/shipsStore";
 // @ts-expect-error: dayjs
 import dayjs from "dayjs";
 import { EditParams as CommentEditParams } from "@/components/organisms/CommentForm";
 import { COLORS } from "@/styles/colors";
+import UserIcon from "@/components/atoms/UserIcon";
 
 interface Props {
   comment: IComment;
@@ -29,6 +31,7 @@ const Comment = ({
 }: Props) => {
   const { user } = useAuthStore();
   const { hovered, ref } = useHover();
+  const { shipDetail } = useShipsStore();
 
   const dateString = useMemo(() => {
     return dayjs(comment.createdAt).format("YYYY/MM/DD HH:mm");
@@ -41,6 +44,10 @@ const Comment = ({
   const onDelete = useCallback(() => {
     deleteComment(comment.id);
   }, [comment, deleteComment]);
+
+  const commenter = useMemo(() => {
+    return shipDetail!.users.find((u) => u.id === comment.userId)
+  }, [shipDetail, comment]);
 
   return (
     <Group
@@ -55,17 +62,11 @@ const Comment = ({
         ...(isEditing ? { backgroundColor: COLORS.skyblue } : {}),
       }}
     >
-      <Image
-        w={35}
-        h={35}
-        radius="50%"
-        style={{ border: "1px solid gray" }}
-        src={dummySrc}
-      />
+      {commenter && <UserIcon user={commenter} size={35} />}
       <Stack gap={0} flex={1}>
         <Box pos="relative">
           <Box>
-            <Text fz="sm">{dummyName}</Text>
+            <Text fz="sm">{commenter?.name}</Text>
             <Text fz="xs">{dateString}</Text>
           </Box>
           {user?.uid === comment.userId && hovered && (
