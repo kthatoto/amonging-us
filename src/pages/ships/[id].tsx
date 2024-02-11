@@ -10,6 +10,7 @@ import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
 import useMobsStore from "@/stores/mobsStore";
 import { useMobs } from "@/hooks/useMobs";
+import BackgroundImage from "@/components/atoms/BackgroundImage";
 
 const Main = () => {
   const { user } = useAuthStore();
@@ -38,6 +39,7 @@ const Main = () => {
         position: "relative",
       }}
     >
+      <BackgroundImage mainRef={mainRef} />
       {shipDetail.walls.map((wall) => (
         <Wall key={wall.id} wall={wall} mainRef={mainRef} />
       ))}
