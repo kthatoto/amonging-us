@@ -3,6 +3,8 @@ import { rtdb } from "@/firebase";
 import { UserInfo } from "firebase/auth";
 
 export const registerUser = async (shipId: string, user: UserInfo) => {
+  console.log('called#04', rtdb);
+  console.log(shipId, user);
   await update(ref(rtdb, `ships/${shipId}/users/${user.uid}`), {
     id: user.uid,
     name: user.displayName,
@@ -19,5 +21,6 @@ export const updateUser = async (
   userId: string,
   pos: { x: number; y: number },
 ) => {
+  console.log('called#03', shipId, userId, pos);
   await update(ref(rtdb, `ships/${shipId}/users/${userId}/position`), pos);
 };

@@ -80,9 +80,11 @@ export const useController = (userId?: string) => {
     }
     if (diff.x !== 0 || diff.y !== 0) {
       move(diff.x, diff.y);
+      console.log('called#01');
       if (counter > UPDATE_DATABASE_INTERVAL / INTERVAL) {
         setCounter(0);
         if (shipDetail && userId) {
+          console.log('called#02', shipDetail.id, userId);
           updateUser(shipDetail.id, userId, {
             x: position.x + diff.x,
             y: position.y + diff.y,
