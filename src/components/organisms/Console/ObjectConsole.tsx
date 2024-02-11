@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Box, Divider, Group, Flex, Stack, Text } from "@mantine/core";
+import { Box, Divider, Group, Flex, Image, Stack, Text } from "@mantine/core";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faComments } from "@fortawesome/free-solid-svg-icons";
 import useShipsStore from "@/stores/shipsStore";
@@ -11,6 +11,10 @@ import CommentForm, {
 import { useParams } from "@/router";
 import { showSuccessNotification } from "@/utils/notifications";
 import { ObjectDetail } from "@/models/ship";
+
+import Electorical from "@/assets/electorical.png";
+import UpperEngine from "@/assets/upper-engine.png";
+import Navigation from "@/assets/navigation.png";
 
 interface Props {
   selectedObject: ObjectDetail;
@@ -39,7 +43,18 @@ const ObjectConsole = ({ selectedObject }: Props) => {
       <Stack flex={1} gap={0} style={{ overflow: "hidden" }}>
         <Stack gap={10}>
           <Group align="top" wrap="nowrap">
-            <Box w={80} h={80} style={{ minWidth: 80 }} bg="gray"></Box>
+            <Image
+              w={80}
+              h={80}
+              style={{ minWidth: 80 }}
+              src={
+                {
+                  "電気室": Electorical,
+                  "上部エンジン": UpperEngine,
+                  "ナビゲーション": Navigation,
+                }[selectedObject.title]
+              }
+            />
             <Box flex={1}>
               <Text fw="bold">{selectedObject.title}</Text>
               {/* TODO: 誰が作ったか */}

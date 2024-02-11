@@ -188,7 +188,7 @@ export const createShip = async (params: ShipParams) => {
     y: 30,
     width: 150,
     height: 150,
-    title: "配電盤",
+    title: "電気室",
   });
   await addDoc(objectDocsRef, {
     x: 740,
