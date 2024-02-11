@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { FontAwesomeIcon as I } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Box, Group, Image, Stack, Text, UnstyledButton } from "@mantine/core";
+import { Box, Group, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
 import { Comment as IComment } from "@/models/ship";
 import useAuthStore from "@/stores/authStore";
@@ -18,10 +18,6 @@ interface Props {
   isEditing: boolean;
   deleteComment: (commentId: string) => Promise<void>;
 }
-
-const dummySrc =
-  "https://lh3.googleusercontent.com/a/ACg8ocISAgqL0AWYtiS1K0UjC8atjUEDYiWMIZ_-J4nZ4_nzDQ=s288-c-no";
-const dummyName = "はとぴじょんああああああ";
 
 const Comment = ({
   comment,

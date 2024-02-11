@@ -18,7 +18,7 @@ const Wall = ({ wall, mainRef }: Props) => {
     <Box
       w={wall.width}
       h={wall.height}
-      style={{ position: "absolute", backgroundColor: "gray", top, left }}
+      style={{ position: "absolute", backgroundColor: "#0d2136", top, left }}
     />
   );
 };
