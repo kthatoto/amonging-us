@@ -19,7 +19,8 @@ import {
   USERS_COLLECTION_NAME,
   WALLS_COLLECTION_NAME,
 } from "@/constants";
-import { getUser, UserDoc } from "@/models/user";
+import { UserDoc } from "@/models/user";
+import { UserInfo } from "firebase/auth";
 
 export interface Comment {
   id: string;
@@ -155,12 +156,14 @@ export const getObjectDetail = async (
   } as ObjectDetail;
 };
 
-export const join = async (id: string, userId: string) => {
-  const userData = await getUser(userId);
-
+export const join = async (id: string, user: UserInfo) => {
   const shipDocRef = doc(db, SHIPS_COLLECTION_NAME, id);
-  const userDocRef = doc(shipDocRef, USERS_COLLECTION_NAME, userId);
-  await setDoc(userDocRef, userData);
+  const userDocRef = doc(shipDocRef, USERS_COLLECTION_NAME, user.uid);
+  await setDoc(userDocRef, {
+    id: user.uid,
+    name: user.displayName,
+    photoURL: user.photoURL,
+  });
 };
 
 export interface ShipParams {

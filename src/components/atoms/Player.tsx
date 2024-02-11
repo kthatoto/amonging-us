@@ -16,7 +16,7 @@ const commonStyle = {
 
 const Player = () => {
   const { user } = useAuthStore();
-  useController(user?.uid);
+  useController();
 
   if (!user) {
     return (

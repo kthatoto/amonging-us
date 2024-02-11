@@ -11,7 +11,6 @@ import {
   updateShip,
   ShipParams,
 } from "@/models/ship";
-import { registerUser } from "@/database/user";
 import { UserInfo } from "firebase/auth";
 
 interface ShipsStore {
@@ -36,10 +35,9 @@ export default create<ShipsStore>((set) => {
   };
 
   const rideShip = async (id: string, user: UserInfo | null) => {
-    if (user) await join(id, user.uid);
+    if (user) await join(id, user);
     const [shipDetail] = await Promise.all([
       getShipDetail(id),
-      user ? registerUser(id, user) : undefined,
     ]);
     set({ shipDetail });
   };

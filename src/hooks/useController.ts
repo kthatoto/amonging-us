@@ -4,11 +4,9 @@ import useShipsStore from "@/stores/shipsStore";
 import { useInterval } from "@/utils/useInterval";
 import { calcCollisionStatus } from "@/utils/calcCollisionStatus";
 import { PLAYER_SIZE } from "@/constants";
-import { updateUser } from "@/database/user";
 
 const INTERVAL = 30;
 const TICK_DISTANCE = 10;
-const UPDATE_DATABASE_INTERVAL = 50;
 
 const UP_KEYS = ["ArrowUp", "w"];
 const DOWN_KEYS = ["ArrowDown", "s"];
@@ -17,7 +15,7 @@ const LEFT_KEYS = ["ArrowLeft", "a"];
 
 const STOP_MOVE_TAGS = ["INPUT", "TEXTAREA"];
 
-export const useController = (userId?: string) => {
+export const useController = () => {
   const { move, position, setInteractableObjects } = usePlayerStore();
   const { shipDetail, selectedObject, clearObject } = useShipsStore();
 
@@ -80,15 +78,6 @@ export const useController = (userId?: string) => {
     }
     if (diff.x !== 0 || diff.y !== 0) {
       move(diff.x, diff.y);
-      if (counter > UPDATE_DATABASE_INTERVAL / INTERVAL) {
-        setCounter(0);
-        if (shipDetail && userId) {
-          updateUser(shipDetail.id, userId, {
-            x: position.x + diff.x,
-            y: position.y + diff.y,
-          });
-        }
-      }
     }
     if (isMoving) setInteractableObjects(interactableIds);
     if (
