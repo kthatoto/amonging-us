@@ -9,7 +9,6 @@ import Mob from "@/components/atoms/Mob";
 import useAuthStore from "@/stores/authStore";
 import useShipsStore from "@/stores/shipsStore";
 import useMobsStore from "@/stores/mobsStore";
-import { useMobs } from "@/hooks/useMobs";
 import BackgroundImage from "@/components/atoms/BackgroundImage";
 
 const Main = () => {
@@ -23,8 +22,6 @@ const Main = () => {
   useEffect(() => {
     if (user) rideShip(id, user);
   }, [rideShip, id, user]);
-
-  useMobs(id);
 
   if (!shipDetail) return null;
 

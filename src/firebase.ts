@@ -5,7 +5,6 @@ import {
   connectAuthEmulator,
 } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
-import { connectDatabaseEmulator, getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -21,7 +20,6 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const db = getFirestore(app);
-const rtdb = getDatabase(app);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -29,7 +27,6 @@ const isDevelopment = import.meta.env.DEV;
 if (isDevelopment) {
   connectAuthEmulator(auth, "http://localhost:9099");
   connectFirestoreEmulator(db, "localhost", 8080);
-  connectDatabaseEmulator(rtdb, "localhost", 9000);
 }
 
-export { auth, db, rtdb, googleProvider };
+export { auth, db, googleProvider };
