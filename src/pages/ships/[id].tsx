@@ -12,6 +12,12 @@ import useMobsStore from "@/stores/mobsStore";
 import { useMobs } from "@/hooks/useMobs";
 import BackgroundImage from "@/components/atoms/BackgroundImage";
 
+// const objs = [
+//   { id: "1", x: -590, y: -340, width: 150, height: 150 }, // 上部エンジン
+//   { id: "2", x: -250, y: 30, width: 150, height: 150 }, // 配電盤
+//   { id: "3", x: 740, y: -130, width: 150, height: 150 }, // ナビゲーション
+// ];
+
 const Main = () => {
   const { user } = useAuthStore();
   const { id } = useParams("/ships/:id");
@@ -50,6 +56,7 @@ const Main = () => {
         if (mob.id === user?.uid) return null;
         return <Mob key={mob.id} mob={mob} mainRef={mainRef} />
       })}
+
       <Player />
     </Box>
   );

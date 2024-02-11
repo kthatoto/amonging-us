@@ -173,9 +173,27 @@ export interface ShipParams {
 export const createShip = async (params: ShipParams) => {
   const shipDocsRef = collection(db, SHIPS_COLLECTION_NAME);
   const shipDocRef = await addDoc(shipDocsRef, params);
+  const objectDocsRef = collection(shipDocRef, OBJECTS_COLLECTION_NAME);
   const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
+
+  await addDoc(objectDocsRef, { // 上部エンジン
+    x: -590,
+    y: -340,
+    width: 150,
+    height: 150,
+    title: "上部エンジン",
+  });
+  await addDoc(objectDocsRef, { // 配電盤
+    x: -250, y: 30, width: 150, height: 150,
+    title: "配電盤",
+  });
+  await addDoc(objectDocsRef, { // ナビゲーション
+    x: 740, y: -130, width: 150, height: 150,
+    title: "ナビゲーション",
+  });
+
   await addDoc(wallDocsRef, {
-    x: -1800,
+    x: -1900,
     y: -1500,
     width: 1000,
     height: 3000,
@@ -189,7 +207,7 @@ export const createShip = async (params: ShipParams) => {
     isWall: true,
   });
   await addDoc(wallDocsRef, {
-    x: 800,
+    x: 900,
     y: -1500,
     width: 1000,
     height: 3000,
