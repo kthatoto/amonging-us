@@ -10,8 +10,16 @@ interface Props {
 }
 const Mob = ({ mob, mainRef }: Props) => {
   const { position } = usePlayerStore();
-  const top = mob.position.y - position.y + (mainRef.current?.clientHeight || 0) / 2 - PLAYER_SIZE / 2;
-  const left = mob.position.x - position.x + (mainRef.current?.clientWidth || 0) / 2 - PLAYER_SIZE / 2;
+  const top =
+    mob.position.y -
+    position.y +
+    (mainRef.current?.clientHeight || 0) / 2 -
+    PLAYER_SIZE / 2;
+  const left =
+    mob.position.x -
+    position.x +
+    (mainRef.current?.clientWidth || 0) / 2 -
+    PLAYER_SIZE / 2;
 
   return (
     <UserIcon

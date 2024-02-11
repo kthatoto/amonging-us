@@ -176,19 +176,25 @@ export const createShip = async (params: ShipParams) => {
   const objectDocsRef = collection(shipDocRef, OBJECTS_COLLECTION_NAME);
   const wallDocsRef = collection(shipDocRef, WALLS_COLLECTION_NAME);
 
-  await addDoc(objectDocsRef, { // 上部エンジン
+  await addDoc(objectDocsRef, {
     x: -590,
     y: -340,
     width: 150,
     height: 150,
     title: "上部エンジン",
   });
-  await addDoc(objectDocsRef, { // 配電盤
-    x: -250, y: 30, width: 150, height: 150,
+  await addDoc(objectDocsRef, {
+    x: -250,
+    y: 30,
+    width: 150,
+    height: 150,
     title: "配電盤",
   });
-  await addDoc(objectDocsRef, { // ナビゲーション
-    x: 740, y: -130, width: 150, height: 150,
+  await addDoc(objectDocsRef, {
+    x: 740,
+    y: -130,
+    width: 150,
+    height: 150,
     title: "ナビゲーション",
   });
 

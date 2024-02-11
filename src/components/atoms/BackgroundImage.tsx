@@ -14,14 +14,7 @@ const BackgroundImage = ({ mainRef }: Props) => {
   const left = -900 - position.x + (mainRef.current?.clientWidth || 0) / 2;
 
   return (
-    <Image
-      src={skeld}
-      pos="absolute"
-      w={1800}
-      h={1000}
-      top={top}
-      left={left}
-    />
+    <Image src={skeld} pos="absolute" w={1800} h={1000} top={top} left={left} />
   );
 };
 

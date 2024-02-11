@@ -48,7 +48,7 @@ const Main = () => {
       ))}
       {mobs.map((mob) => {
         if (mob.id === user?.uid) return null;
-        return <Mob key={mob.id} mob={mob} mainRef={mainRef} />
+        return <Mob key={mob.id} mob={mob} mainRef={mainRef} />;
       })}
 
       <Player />
