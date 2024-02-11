@@ -21,7 +21,7 @@ const Main = () => {
   const { mobs } = useMobsStore();
 
   useEffect(() => {
-    rideShip(id, user);
+    if (user) rideShip(id, user);
   }, [rideShip, id, user]);
 
   useMobs(id);
